@@ -11,15 +11,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+
+
+/**
+ * Represents a user and their login information. Is a table item.
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-
-/**
- * Represents a user and their login information. Is a table item.
- */
 public class User implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
