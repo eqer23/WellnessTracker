@@ -20,7 +20,7 @@ import java.util.Collections;
 /**
  * Represents a user and their login information. Is a table item.
  */
-public class AppUser implements UserDetails {
+public class User implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
@@ -37,23 +37,23 @@ public class AppUser implements UserDetails {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private AppUserRole appUserRole;
+    private UserRole userRole;
     private Boolean locked;
     private Boolean enabled;
 
-    public AppUser(String name, String username, String email, String password, AppUserRole appUserRole, Boolean locked, Boolean enabled) {
+    public User(String name, String username, String email, String password, UserRole userRole, Boolean locked, Boolean enabled) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.appUserRole = appUserRole;
+        this.userRole = userRole;
         this.locked = locked;
         this.enabled = enabled;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(authority);
     }
 

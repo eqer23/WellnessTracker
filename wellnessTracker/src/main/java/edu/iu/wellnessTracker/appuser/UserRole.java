@@ -1,6 +1,9 @@
 package edu.iu.wellnessTracker.appuser;
 
-public enum AppUserRole {
+/**
+ * List of all roles for users.
+ */
+public enum UserRole {
     CLIENT,
     ADMIN,
     TRAINER

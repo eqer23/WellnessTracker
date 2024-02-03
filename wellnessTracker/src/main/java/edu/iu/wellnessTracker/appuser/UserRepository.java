@@ -7,8 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * User repository for database.
+ */
 @Repository
 @Transactional(readOnly = true)
 public interface UserRepository {
-    Optional<AppUser> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }
