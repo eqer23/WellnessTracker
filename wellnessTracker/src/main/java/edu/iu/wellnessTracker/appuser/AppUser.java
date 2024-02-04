@@ -21,7 +21,7 @@ import java.util.Collections;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
@@ -38,23 +38,23 @@ public class User implements UserDetails {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private AppUserRole appUserRole;
     private Boolean locked;
     private Boolean enabled;
 
-    public User(String name, String username, String email, String password, UserRole userRole, Boolean locked, Boolean enabled) {
+    public AppUser(String name, String username, String email, String password, AppUserRole appUserRole, Boolean locked, Boolean enabled) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
+        this.appUserRole = appUserRole;
         this.locked = locked;
         this.enabled = enabled;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
         return Collections.singletonList(authority);
     }
 
