@@ -13,6 +13,7 @@ import java.util.UUID;
 
 /**
  * user operations, signup, load
+ * signUp user will return some generated code for the login idk
  */
 @Service
 @AllArgsConstructor
