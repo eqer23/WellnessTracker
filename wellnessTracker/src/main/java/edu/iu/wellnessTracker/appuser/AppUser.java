@@ -33,6 +33,9 @@ public class AppUser implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
+    @Enumerated(EnumType.STRING)
+    private GenderType genderType;
+    private int age;
     private Boolean locked;
     private Boolean enabled;
 

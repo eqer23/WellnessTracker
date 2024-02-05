@@ -19,10 +19,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @AllArgsConstructor
-public class RegistrationService {
+public class ClientRegistrationService {
     private final AppUserService appUserService;
 
-    public String register(RegistrationRequest request) {
+    public String register(ClientRegistrationRequest request) {
         String token = appUserService.signUpUser(
                 new AppUser(
                         request.getName(),
