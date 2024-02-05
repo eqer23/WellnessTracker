@@ -8,6 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Not used, loads database with dummy code
+ */
 @Component
 @Order(1)
 public class UserDBLoader implements CommandLineRunner {
@@ -25,7 +28,7 @@ public class UserDBLoader implements CommandLineRunner {
     }
 
     private void initializeUsers() {
-        AppUser user1 = new AppUser("Tim","tim01","tim@email.com", "password", AppUserRole.ADMIN,false,true);
+        AppUser user1 = new AppUser("Tim","tim@email.com", "password", AppUserRole.ADMIN);
         this.appUserRepository.save(user1);
     }
 }

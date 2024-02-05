@@ -5,6 +5,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Stuff you need in JSON request to registration
+ */
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode

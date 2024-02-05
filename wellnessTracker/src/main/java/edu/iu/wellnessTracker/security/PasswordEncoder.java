@@ -6,6 +6,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * bCrypt password encoder that encodes and decodes for the database.
+ */
 @Configuration
 public class PasswordEncoder  {
 

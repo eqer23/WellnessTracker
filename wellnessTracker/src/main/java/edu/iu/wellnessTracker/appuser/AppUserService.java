@@ -1,17 +1,24 @@
 package edu.iu.wellnessTracker.appuser;
 
+import ch.qos.logback.classic.encoder.JsonEncoder;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 /**
- * Queries for database.
+ * user operations, signup, load
  */
 @Service
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final AppUserRepository appUserRepository;
     @Override
@@ -22,5 +29,24 @@ public class AppUserService implements UserDetailsService {
         else {
             return appUserRepository.findByEmail(email);
         }
+    }
+
+    public String signUpUser(AppUser appUser) {
+        boolean userExists = appUserRepository
+                .findByEmail(appUser.getEmail()) != null;
+
+        if (userExists) {
+           // todo needs checks for existing user
+            throw new IllegalStateException("email already taken");
+        }
+
+        String encodedPassword = bCryptPasswordEncoder
+                .encode(appUser.getPassword());
+
+        appUser.setPassword(encodedPassword);
+
+        appUserRepository.save(appUser);
+
+        return UUID.randomUUID().toString();
     }
 }

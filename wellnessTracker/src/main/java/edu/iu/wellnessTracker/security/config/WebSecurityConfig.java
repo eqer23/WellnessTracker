@@ -19,7 +19,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-
+/**
+ * security config lets Spring security know if we're allowed to use these pages without password
+ * home, registration are allowed without password
+ */
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
@@ -27,6 +30,8 @@ public class WebSecurityConfig {
 
     private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+// TODO could be useful if I understood it :(
 
 //    @Bean
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -43,6 +48,7 @@ public class WebSecurityConfig {
 //
 //        return http.build();
 //    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
