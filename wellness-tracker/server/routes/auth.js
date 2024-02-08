@@ -14,6 +14,7 @@ router.post('/login', async (req, res) => {
             res.json({message: "Admin not registered."})
         }
         const validPassword = await bcrypt.compare(password, admin.password)
+        
         if (!validPassword) {
             res.json({message: "Password invalid."})
         }

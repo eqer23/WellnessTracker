@@ -20,16 +20,16 @@ const Login = () => {
     };
 
     return (
-        <div className='login-page'>
+        <div className='wrapper'>
             <div className="login-container">
                 <h2>Login</h2> <br />
-                <div className='form-group'>
+                <div className='input-box'>
                     <label htmlFor='username'>Username:</label>
-                    <input type="text" placeholder='Enter Username' onChange={(e) => setUsername(e.target.value)}/>
+                    <input type="text" placeholder='Enter Username' required onChange={(e) => setUsername(e.target.value)}/>
                 </div>
-                <div className='form-group'>
+                <div className='input-box'>
                     <label htmlFor='password'>Password:</label>
-                    <input type='password' placeholder='Enter Password' onChange={(e) => setPassword(e.target.value)}/>
+                    <input type='password' placeholder='Enter Password' required onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <div className='form-group'>
                     <label htmlFor='role'>Role:</label>

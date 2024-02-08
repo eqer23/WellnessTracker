@@ -16,7 +16,7 @@ const LoginForm = () => {
     const handleSubmit = () => {
         axios.post('http://localhost:3001/auth/login',{username, password, role})
         .then(res => {
-            if (res.data.login && res.data.role === 'admin') {
+            if (res.data.login &&  res.data.role === 'admin') {
                 console.log(res)
                 // navigate('/dashboard')
             }
@@ -30,7 +30,7 @@ const LoginForm = () => {
                 <h1>Login</h1>
 
                 {/* username input textbox */}
-                <div className="form-group">
+                <div className="input-box">
                     <input type="text" placeholder="Username" required onChange={(e) => setUsername(e.target.value)}/>
                     <FaUserAlt className="icon" />
                 </div>
