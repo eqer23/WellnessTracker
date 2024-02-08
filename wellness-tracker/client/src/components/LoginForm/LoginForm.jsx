@@ -18,7 +18,7 @@ const LoginForm = () => {
         .then(res => {
             if (res.data.login &&  res.data.role === 'admin') {
                 console.log(res)
-                // navigate('/dashboard')
+                navigate('/dashboard')
             }
         })
         .catch(err => console.log(err))
@@ -26,7 +26,7 @@ const LoginForm = () => {
 
     return (
         <div className="wrapper">
-            <form>
+            <div>
                 <h1>Login</h1>
 
                 {/* username input textbox */}
@@ -72,7 +72,7 @@ const LoginForm = () => {
                         </Link>
                     </p>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home'
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar/Navbar'
 import Register from './components/ClientRegistration/ClientRegistration'
-import Login from './components/Login'
-// import Login from './components/LoginForm/LoginForm'
+import Role from './components/Role/Role'
+import Login from './components/LoginForm/LoginForm'
 import Dashboard from './components/Dashboard'
+import ClientRegistration from './components/ClientRegistration/ClientRegistration'
+import ProfessionalRegistration from './components/ProfessionalRegistration/ProfessionalRegistration'
 
 
 function App() {
@@ -17,6 +19,10 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/role" element={<Role />}></Route>
+        <Route path="/cregistration" element={<ClientRegistration />}></Route>
+        <Route path="/pregistration" element={<ProfessionalRegistration />}></Route>
+
       </Routes>
     </BrowserRouter>
   )
