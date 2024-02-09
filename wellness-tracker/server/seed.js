@@ -1,27 +1,26 @@
-import express from 'express'
 import bcrypt from 'bcrypt'
-import { Admin } from './models/Admin.js'
+import { User } from './models/User.js'
 import './db.js'
 
-async function AdminAccount() {
+async function userAccount() {
     try {
-        const adminCount = await Admin.countDocuments();
-        if (adminCount === 0) {
+        const userCount = await User.countDocuments();
+        if (userCount === 0) {
             const hashPassword = await bcrypt.hash('123', 10);
-            const newAdmin = new Admin({
-                username: 'admin',
+            const newUser = new User({
+                username: 'user',
                 password: hashPassword
             })
-            await newAdmin.save();
-            console.log("Admin created.")
+            await newUser.save();
+            console.log("User created.")
         }
         else {
-            console.log("Admin exists.")
+            console.log("User exists.")
         }
     }
     catch(err) {
-        console.log("Admin account creation error.")
+        console.log("User account creation error.")
     }
 }
 
-AdminAccount();
+userAccount();

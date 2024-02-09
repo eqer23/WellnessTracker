@@ -1,16 +1,18 @@
-import { Admin } from '../models/Admin.js';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import { User } from "../models/User.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 const salt = 10;
 
-const registrationPostController = async (req, res) => {
-    const body = req.body;
-    const hashPassword = await bcrypt(body.password)
+export const registrationPostController = async (req, res) => {
+  const body = req.body;
+  const hashPassword = await bcrypt(body.password);
 
-    const newAdmin = new Admin({
-        username: 'admin',
-        password: hashPassword
-    })
-    await newAdmin.save();
-    console.log('Admin Created.');  
-}
+  const newUser = new User({
+    username: "user",
+    password: hashPassword,
+  });
+  await newUser.save();
+  console.log("user Created.");
+};
+
+export default registrationPostController;

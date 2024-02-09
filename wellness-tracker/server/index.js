@@ -2,7 +2,8 @@ import express from "express";
 import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from "cookie-parser";
-import { AdminRouter } from "./routes/login.js";
+import { userLoginRouter } from "./routes/login.js";
+import { userRegisterRouter } from "./routes/registration.js";
 
 const app = express();
 app.use(express.json())
@@ -12,7 +13,8 @@ app.use(cors({
 }))
 app.use(cookieParser())
 dotenv.config()
-app.use('/auth', AdminRouter)
+app.use('/auth', userLoginRouter)
+app.use('/cregrister',userRegisterRouter)
 
 app.listen(process.env.PORT, () => {
     console.log("server is running");

@@ -1,30 +1,28 @@
-import { Admin } from '../models/Admin.js';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import { User } from "../models/User.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+// login
+export const loginPostController = async (req, res) => {
+  const { username, password, role } = req.body;
+  if (role === "user") {
+    const user = await User.findOne({ username });
+    if (!user) {
+      res.json({ message: "user not registered." });
+    }
+    const validPassword = await bcrypt.compare(password, user.password);
 
-// login action
-const loginPostController = async (req, res) => {
-    const {username, password, role} = req.body;
-        if (role === 'admin') {
-            const admin = await Admin.findOne({username})
-            if (!admin) {
-                res.json({message: "Admin not registered."})
-            }
-            const validPassword = await bcrypt.compare(password, admin.password)
-            
-            if (!validPassword) {
-                res.json({message: "Password invalid."})
-            }
-            const token = jwt.sign({username: admin.username, role: 'admin'},process.env.ADMINKEY)
-            res.cookie('token',token,{httpOnly: true, secure: true})
-            return res.json({login:true,role:'admin'})
-        }
-        else if (role === 'client') {
-
-        }
-        else {
-
-        }
+    if (!validPassword) {
+      res.json({ message: "Password invalid." });
+    }
+    const token = jwt.sign(
+      { username: user.username, role: "user" },
+      process.env.userKEY
+    );
+    res.cookie("token", token, { httpOnly: true, secure: true });
+    return res.json({ login: true, role: "user" });
+  } else if (role === "client") {
+  } else {
+  }
 };
 
 export default loginPostController;
