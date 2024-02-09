@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from "cookie-parser";
-import { AdminRouter } from "./routes/auth.js";
+import { AdminRouter } from "./routes/login.js";
 
 const app = express();
 app.use(express.json())
