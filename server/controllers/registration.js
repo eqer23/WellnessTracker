@@ -8,7 +8,7 @@ export const registrationPostController = async (req, res) => {
   const hashPassword = await bcrypt(body.password);
 
   const newUser = new User({
-    username: "user",
+    username: body.username,
     password: hashPassword,
   });
   await newUser.save();
