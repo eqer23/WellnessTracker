@@ -2,7 +2,7 @@ import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 // login function, post to login
-export const loginPostController = async (req, res) => {
+const loginPostController = async (req, res) => {
   const { username, password, role } = req.body;
   if (role === "user") {
     const user = await User.findOne({ username });

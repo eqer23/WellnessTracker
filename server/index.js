@@ -13,8 +13,8 @@ app.use(cors({
 }))
 app.use(cookieParser())
 dotenv.config()
-app.use('/auth', userLoginRouter)
-app.use('/auth',userRegisterRouter)
+app.use('/', userLoginRouter)
+app.use('/',userRegisterRouter)
 
 app.listen(process.env.PORT, () => {
     console.log("server is running");
