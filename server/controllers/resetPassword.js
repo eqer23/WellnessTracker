@@ -1,9 +1,6 @@
 import { User } from "../models/User.js";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer';
-
-
 
 const resetPasswordController = async (req, res) => {
     const { email } = req.body;
@@ -22,7 +19,7 @@ const resetPasswordController = async (req, res) => {
       
       var mailOptions = {
         from: 'storage.stuff.things@gmail.com',
-        to: 'myfriend@yahoo.com',
+        to: email,
         subject: 'INSTAFIT: RESET PASSWORD',
         text: 'link to reset password: '
       };
