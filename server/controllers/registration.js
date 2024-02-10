@@ -9,6 +9,7 @@ const registrationPostController = async (req, res) => {
   const newUser = new User({
     username: username,
     password: hashPassword,
+    role: role
   });
 
   await newUser.save();
