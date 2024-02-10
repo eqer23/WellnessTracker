@@ -17,5 +17,5 @@ app.use('/', userLoginRouter)
 app.use('/',userRegisterRouter)
 
 app.listen(process.env.PORT, () => {
-    console.log("server is running");
+    console.log("Server is running");
 })
