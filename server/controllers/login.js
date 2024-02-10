@@ -4,10 +4,10 @@ import bcrypt from "bcrypt";
 // login function, post to login
 const loginPostController = async (req, res) => {
   const { username, password, role } = req.body;
-  if (role === "user") {
+  if (role === "user" || role === 'professional') {
     const user = await User.findOne({ username });
     if (!user) {
-      res.json({ message: "user not registered." });
+      res.json({ message: "client not registered." });
     }
     const validPassword = await bcrypt.compare(password, user.password);
 
@@ -20,7 +20,7 @@ const loginPostController = async (req, res) => {
     );
     res.cookie("token", token, { httpOnly: true, secure: true });
     return res.json({ login: true, role: "user" });
-  } else if (role === "client") {
+  } else if (role === "professional") {
   } else {
   }
 };
