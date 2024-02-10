@@ -1,18 +1,19 @@
 import { User } from "../models/User.js";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 const salt = 10;
 
-export const registrationPostController = async (req, res) => {
-  const body = req.body;
-  const hashPassword = await bcrypt(body.password);
+const registrationPostController = async (req, res) => {
+  const { username, password, role } = req.body;
+  const hashPassword = await bcrypt.hash(password, salt);
 
   const newUser = new User({
-    username: body.username,
+    username: username,
     password: hashPassword,
+    role: role
   });
+
   await newUser.save();
-  console.log("user Created.");
+  console.log("Account created.");
 };
 
 export default registrationPostController;

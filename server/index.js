@@ -8,13 +8,13 @@ import { userRegisterRouter } from "./routes/registration.js";
 const app = express();
 app.use(express.json())
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: true,
     credentials: true
 }))
 app.use(cookieParser())
 dotenv.config()
-app.use('/auth', userLoginRouter)
-app.use('/auth',userRegisterRouter)
+app.use('/', userLoginRouter)
+app.use('/',userRegisterRouter)
 
 app.listen(process.env.PORT, () => {
     console.log("server is running");
