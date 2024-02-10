@@ -3,9 +3,9 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 // login function, post to login
 const loginPostController = async (req, res) => {
-  const { username, password, role } = req.body;
-  if (role === "user" || role === 'professional') {
-    const user = await User.findOne({ username });
+  const { email, password, role } = req.body;
+  if (role === "user" || role === 'professional' || 'admin') {
+    const user = await User.findOne({ email });
     if (!user) {
       res.json({ message: "client not registered." });
     }
@@ -15,7 +15,7 @@ const loginPostController = async (req, res) => {
       res.json({ message: "Password invalid." });
     }
     const token = jwt.sign(
-      { username: user.username, role: "user" },
+      { email: user.email, role: "user" },
       process.env.userKEY
     );
     res.cookie("token", token, { httpOnly: true, secure: true });
