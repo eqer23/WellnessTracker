@@ -3,28 +3,28 @@ import bcrypt from "bcrypt";
 const salt = 10;
 
 const registrationPostController = async (req, res) => {
-  const { username, password, role } = req.body;
+  const { email, password, role } = req.body;
 
   if (role === "user" || role === 'professional') {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (user) {
       res.status(409).json({ message: "Client is already registered." });
       console.log('Account exists')
       return;
     }
   }
-  else {
-    const hashPassword = await bcrypt.hash(password, salt);
 
-    const newUser = new User({
-      username: username,
-      password: hashPassword,
-      role: role
-    });
+  const hashPassword = await bcrypt.hash(password, salt);
 
-    await newUser.save();
-    console.log("Account created.");
-  }
+  const newUser = new User({
+    email: email,
+    password: hashPassword,
+    role: role
+  });
+
+  await newUser.save();
+  res.status(200).json({ message: "Account created." });
+  console.log("Account created.");
 };
 
 export default registrationPostController;

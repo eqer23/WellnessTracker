@@ -8,7 +8,7 @@ async function userAccount() {
         if (userCount === 0) {
             const hashPassword = await bcrypt.hash('123', 10);
             const newUser = new User({
-                username: 'user',
+                email: 'user',
                 password: hashPassword
             })
             await newUser.save();
