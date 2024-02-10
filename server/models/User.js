@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     firstName : {
         type: String,
-        required: true
+        // required: true
     },
     lastName : {
         type: String,
-        required: true
+        // required: true
     },
     email : { // changed from `username` since the email will be the username
         type: String, 

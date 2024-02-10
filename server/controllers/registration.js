@@ -23,8 +23,8 @@ const registrationPostController = async (req, res) => {
   });
 
   await newUser.save();
-  res.status(200).json({ message: "Account created." });
   console.log("Account created.");
+  return res.status(200).json({ message: "Account created." });
 };
 
 export default registrationPostController;
