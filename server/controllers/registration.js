@@ -13,7 +13,7 @@ const registrationPostController = async (req, res) => {
   });
 
   await newUser.save();
-  console.log("User created.");
+  console.log("Account created.");
 };
 
 export default registrationPostController;
