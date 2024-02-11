@@ -134,11 +134,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Timothy Chan - timchan@iu.edu
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+* Timothy Chan - timchan@iu.edu
+* Your Name - email@example.com
+* Your Name - email@example.com
+* Your Name - email@example.com
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
