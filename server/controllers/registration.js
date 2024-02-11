@@ -5,6 +5,7 @@ const salt = 10;
 const registrationPostController = async (req, res) => {
   const { email, password, role } = req.body;
 
+  // looks for existing user else break
   if (role === "user" || role === 'professional') {
     const user = await User.findOne({ email });
     if (user) {
@@ -16,6 +17,7 @@ const registrationPostController = async (req, res) => {
 
   const hashPassword = await bcrypt.hash(password, salt);
 
+  // creation of new user with data
   const newUser = new User({
     email: email,
     password: hashPassword,

@@ -1,6 +1,7 @@
 import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+
 // login function, post to login
 const loginPostController = async (req, res) => {
   const { email, password, role } = req.body;
@@ -23,8 +24,11 @@ const loginPostController = async (req, res) => {
     );
     res.cookie("token", token, { httpOnly: true, secure: true });
     return res.json({ login: true, role: "user" });
-  } else if (role === "professional") {
+  } 
+  else if (role === "professional") {
     const user = await User.findOne({ email });
+    
+    // checks for existing user else break
     if (!user) {
       return res.status(404).json({ message: "Account does not exist." });
     }
@@ -42,7 +46,8 @@ const loginPostController = async (req, res) => {
     );
     res.cookie("token", token, { httpOnly: true, secure: true });
     return res.json({ login: true, role: "professional" });
-  } else {
+  } 
+  else {
   }
 };
 
