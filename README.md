@@ -19,18 +19,8 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-
-  <h1 align="center">Instafit</h1>
-
-  <p align="center">
-    A wellness tracking web app that connects users with professionals.
-    <br />
-  </p>
-</div>
+# Instafit
+A wellness tracking web app that connects users with professionals.
 
 
 
