@@ -24,7 +24,7 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Instafit</h3>
+  <h1 align="center">Instafit</h1>
 
   <p align="center">
     A wellness tracking web app that connects users with professionals.
