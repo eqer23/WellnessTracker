@@ -57,7 +57,7 @@ This is an example of how to list things you need to use the software and how to
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Set up MongoDB Community.
 2. Clone the repo
    ```sh
    git clone https://github.com/eqer23/WellnessTracker.git
@@ -92,7 +92,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 - [x] Login/Registration
 - [ ] OAuth2
 - [ ] Two-factor Auth
-- [ ] Passowrd Recovery
+- [ ] Passoword Recovery
 - [ ] Dashboard
 - [ ] Search
 - [ ] Chat
