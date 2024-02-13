@@ -29,7 +29,7 @@ const forgotPasswordController = async (req, res) => {
   });
 
   var mailOptions = {
-    from: 'storage.stuff.things@gmail.com',
+    from: process.env.EMAIL,
     to: email,
     subject: 'Instafit: Reset your password',
     text: `http://localhost:5173/reset-password/${token}`
