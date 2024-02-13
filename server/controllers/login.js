@@ -8,6 +8,7 @@ const loginPostController = async (req, res) => {
   if (role === "user" || role === 'admin') {
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("no user")
       return res.status(404).json({ message: "Account does not exist." });
     }
     const validPassword = await bcrypt.compare(password, user.password);
