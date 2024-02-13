@@ -6,7 +6,7 @@ const salt = 10;
  * Takes care of registration. Searches for existing user first and prevents dupes. Must have required data.
  * @param {*} req 
  * @param {*} res 
- * @returns 
+ * @returns status of action
  */
 
 const registrationPostController = async (req, res) => {

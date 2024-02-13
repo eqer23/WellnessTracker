@@ -1,13 +1,15 @@
 import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt'
 import nodemailer from 'nodemailer';
+let salt = 10;
 /**
  * Sends the reset password email to email from frontend.
  * Creates token based on user id that differentiates users.
  * 
  * @param {*} req - request body that is being sent from the frontend
  * @param {*} res - response (not being used)
- * 
+ * @returns status of action
  */
 
 const forgotPasswordController = async (req, res) => {
@@ -37,11 +39,26 @@ const forgotPasswordController = async (req, res) => {
     if (error) {
       console.log(error);
     } else {
-      res.status(200).json({ message: "Password Reset." });
       console.log('Email sent: ' + info.response);
+      return res.status(200).json({ message: "Password Reset." });
     }
   });
 
 };
 
-export default forgotPasswordController;
+const resetPasswordController = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  try {
+      const decoded = jwt.verify(token, process.env.userKey);
+      const id = decoded.id;
+      const hashPassword = await bcrypt.hash(password, salt)
+      await User.findByIdAndUpdate({_id: id},{password: hashPassword})
+      return res.status(200).json({ status: true, message: "Password updated." });
+  }
+  catch(err) {
+      console.log(err);
+  }
+}
+
+export { forgotPasswordController, resetPasswordController };
