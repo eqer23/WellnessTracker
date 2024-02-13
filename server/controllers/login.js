@@ -2,6 +2,13 @@ import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+/**
+ * Deals with login info. Looks for email in database and compares info, returns a valid token on success.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+
 // login function, post to login
 const loginPostController = async (req, res) => {
   const { email, password, role } = req.body;

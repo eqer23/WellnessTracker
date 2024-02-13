@@ -1,6 +1,14 @@
 import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer';
+/**
+ * Sends the reset password email to email from frontend.
+ * Creates token based on user id that differentiates users.
+ * 
+ * @param {*} req - request body that is being sent from the frontend
+ * @param {*} res - response (not being used)
+ * 
+ */
 
 const forgotPasswordController = async (req, res) => {
   const { email } = req.body;
