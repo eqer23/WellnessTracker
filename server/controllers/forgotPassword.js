@@ -9,7 +9,7 @@ const forgotPasswordController = async (req, res) => {
     console.log("No user error")
     return res.status(404).json({ message: "No user found." });
   }
-  const token = jwt.sign({ email: user.email, }, process.env.userKEY, { expiresIn: "1d" })
+  const token = jwt.sign({ id: user._id, }, process.env.userKEY, { expiresIn: "1d" })
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -21,8 +21,8 @@ const forgotPasswordController = async (req, res) => {
   var mailOptions = {
     from: 'storage.stuff.things@gmail.com',
     to: email,
-    subject: 'INSTAFIT: RESET PASSWORD',
-    text: 'link to reset password: '
+    subject: 'Instafit: Reset your password',
+    text: `http://localhost:5173/reset-password/${token}`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {

@@ -14,7 +14,7 @@ const loginPostController = async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      res.json({ message: "Password invalid." });
+      return res.json({ message: "Password invalid." });
     }
     if (role != user.role) {
       return res.status(404).json({ message: "Account does not exist." });
@@ -36,7 +36,7 @@ const loginPostController = async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      res.json({ message: "Password invalid." });
+      return res.json({ message: "Password invalid." });
     }
     if (role != user.role) {
       return res.status(404).json({ message: "Account does not exist." });
