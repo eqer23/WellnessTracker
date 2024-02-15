@@ -5,3 +5,5 @@ import resetPasswordController from "../controllers/resetPassword.js";
 router.post("/resetpassword", resetPasswordController);
 
 export { router as resetPasswordRouter };
+
+// rhis is  a comment
