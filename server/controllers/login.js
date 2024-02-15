@@ -2,18 +2,26 @@ import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+/**
+ * Deals with login info. Looks for email in database and compares info, returns a valid token on success.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns status of action
+ */
+
 // login function, post to login
 const loginPostController = async (req, res) => {
   const { email, password, role } = req.body;
   if (role === "user" || role === 'admin') {
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("no user")
       return res.status(404).json({ message: "Account does not exist." });
     }
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      res.json({ message: "Password invalid." });
+      return res.json({ message: "Password invalid." });
     }
     if (role != user.role) {
       return res.status(404).json({ message: "Account does not exist." });
@@ -35,7 +43,7 @@ const loginPostController = async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      res.json({ message: "Password invalid." });
+      return res.json({ message: "Password invalid." });
     }
     if (role != user.role) {
       return res.status(404).json({ message: "Account does not exist." });
