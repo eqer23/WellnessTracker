@@ -1,7 +1,8 @@
-import { User } from "../models/User.js";
-import jwt from "jsonwebtoken";
-import bcrypt from 'bcrypt'
-import nodemailer from 'nodemailer';
+const User = require("../models/User.js");
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+
 let salt = 10;
 /**
  * Sends the reset password email to email from frontend.
@@ -61,4 +62,7 @@ const resetPasswordController = async (req, res) => {
   }
 }
 
-export { forgotPasswordController, resetPasswordController };
+module.exports = {
+  forgotPasswordController,
+  resetPasswordController
+};

@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt'
-import { User } from './models/User.js'
-import './db.js'
+const bcrypt = require('bcrypt');
+const { User } = require('./models/User.js');
+require('./db.js');
 
 async function userAccount() {
     try {

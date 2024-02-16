@@ -1,5 +1,6 @@
-import { User } from "../models/User.js";
-import bcrypt from "bcrypt";
+const { User } = require("../models/User.js");
+const bcrypt = require("bcrypt");
+
 const salt = 10;
 
 /**
@@ -36,4 +37,4 @@ const registrationPostController = async (req, res) => {
   return res.status(200).json({ message: "Account created." });
 };
 
-export default registrationPostController;
+module.exports = registrationPostController;
