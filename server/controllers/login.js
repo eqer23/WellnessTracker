@@ -1,6 +1,6 @@
-import { User } from "../models/User.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+const { User } = require("../models/User.js");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 /**
  * Deals with login info. Looks for email in database and compares info, returns a valid token on success.
@@ -59,4 +59,4 @@ const loginPostController = async (req, res) => {
   }
 };
 
-export default loginPostController;
+module.exports = loginPostController;

@@ -1,10 +1,11 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import { userLoginRouter } from "./routes/login.js";
-import { userRegisterRouter } from "./routes/registration.js";
-import { forgotPasswordRouter } from "./routes/forgotPassword.js";
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const { userLoginRouter } = require("./routes/login.js");
+const { userRegisterRouter } = require("./routes/registration.js");
+const { forgotPasswordRouter } = require("./routes/forgotPassword.js");
+
 
 const app = express();
 app.use(express.json());

@@ -1,9 +1,11 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-import {forgotPasswordController, resetPasswordController} from '../controllers/forgotPassword.js'
-import bcrypt from 'bcrypt'
-import { User } from "../models/User.js";
-import jwt from "jsonwebtoken";
+const forgotPasswordController = require('../controllers/forgotPassword.js').forgotPasswordController;
+const resetPasswordController = require('../controllers/forgotPassword.js').resetPasswordController;
+const bcrypt = require('bcrypt');
+const { User } = require("../models/User.js");
+const jwt = require("jsonwebtoken");
+
 let salt = 10;
 
 router.post("/forgot-password", forgotPasswordController);
@@ -12,4 +14,6 @@ router.post("/forgot-password", forgotPasswordController);
 router.post("/reset-password/:token", resetPasswordController);
 
  
-export { router as forgotPasswordRouter }
+module.exports = {
+    forgotPasswordRouter: router
+  };
