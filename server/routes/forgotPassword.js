@@ -13,7 +13,6 @@ router.post("/forgot-password", forgotPasswordController);
 // this updates database.
 router.post("/reset-password/:token", resetPasswordController);
 
- 
 module.exports = {
-    forgotPasswordRouter: router
-  };
+  forgotPasswordRouter: router
+};
