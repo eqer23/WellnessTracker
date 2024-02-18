@@ -2,17 +2,18 @@ const express = require("express");
 const router = express.Router();
 const forgotPasswordController = require('../controllers/forgotPassword.js').forgotPasswordController;
 const resetPasswordController = require('../controllers/forgotPassword.js').resetPasswordController;
-require("../db.js");
-const loginPostController = require("../controllers/login.js");
-const registrationPostController = require("../controllers/registration.js");
-const google = require("../controllers/oauth.js");
+const bcrypt = require('bcrypt');
+const { User } = require("../models/User.js");
+const jwt = require("jsonwebtoken");
 
-router.post("/register", registrationPostController);
+let salt = 10;
+
 router.post("/forgot-password", forgotPasswordController);
-router.post("/reset-password/:token", resetPasswordController);
-router.post("/login", loginPostController);
-router.post("/oauth", google)
 
+// this updates database.
+router.post("/reset-password/:token", resetPasswordController);
+
+ 
 module.exports = {
-  authRouter: router
-};
+    forgotPasswordRouter: router
+  };
