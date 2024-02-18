@@ -2,9 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { userLoginRouter } = require("./routes/login.js");
-const { userRegisterRouter } = require("./routes/registration.js");
-const { forgotPasswordRouter } = require("./routes/forgotPassword.js");
+const { authRouter } = require("./routes/auth.js");
 
 
 // adding mongodb stuff from video:
@@ -53,9 +51,7 @@ app.use(cors({
 }))
 app.use(cookieParser())
 dotenv.config()
-app.use('/', userLoginRouter)
-app.use('/',userRegisterRouter)
-app.use('/',forgotPasswordRouter)
+app.use('/', authRouter)
 
 // =======
 // app.use(express.json());

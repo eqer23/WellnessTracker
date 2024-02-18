@@ -13,28 +13,32 @@ const salt = 10;
 const registrationPostController = async (req, res) => {
   const { email, password, role } = req.body;
 
-  // looks for existing user else break
-  if (role === "user" || role === 'professional') {
-    const user = await User.findOne({ email });
-    if (user) {
-      res.status(409).json({ message: "Client is already registered." });
-      console.log('Account exists')
-      return;
+  if (email && password && role) {// looks for existing user else break
+    if (role === "user" || role === 'professional') {
+      const user = await User.findOne({ email });
+      if (user) {
+        res.status(409).json({ message: "Client is already registered." });
+        console.log('Account exists')
+        return;
+      }
     }
+
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    // creation of new user with data
+    const newUser = new User({
+      email: email,
+      password: hashPassword,
+      role: role
+    });
+
+    await newUser.save();
+    console.log("Account created.");
+    return res.status(200).json({ message: "Account created." });
   }
-
-  const hashPassword = await bcrypt.hash(password, salt);
-
-  // creation of new user with data
-  const newUser = new User({
-    email: email,
-    password: hashPassword,
-    role: role
-  });
-
-  await newUser.save();
-  console.log("Account created.");
-  return res.status(200).json({ message: "Account created." });
+  else {
+    console.log("Error: missing fields")
+  }
 };
 
 module.exports = registrationPostController;
