@@ -13,9 +13,15 @@ const google = async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email })
         if (user) {
-            const token = jwt.sign({ id: user._id }, process.env.userKey);
-            console.log("Existing user found with OAuth2: "+ req.body.email + " logging in")
-            return res.cookie("access_token", token, { httpOnly: true }).status(200);
+
+            const token = jwt.sign(
+                { id: user._id, role: req.body.role },
+                process.env.userKEY
+            );
+            console.log("Existing user found with OAuth2: " + req.body.email + " logging in")
+
+            res.cookie("token", token, { httpOnly: true, secure: true });
+            return res.json({ login: true, role: req.body.role });
         }
         else {
             const placeholderPassword = 'test';
@@ -29,7 +35,7 @@ const google = async (req, res) => {
             await newUser.save();
             console.log("New user created from OAuth2")
             const token = jwt.sign({ id: newUser._id }, process.env.userKey);
-            return res.cookie("access_token", token, { httpOnly: true }).status(200);
+            res.cookie("access_token", token, { httpOnly: true, secure: true });
         }
     }
     catch (err) {
