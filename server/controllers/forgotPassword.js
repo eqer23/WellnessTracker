@@ -1,9 +1,10 @@
-const User = require("../models/User.js");
+const { User } = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 
 let salt = 10;
+
 /**
  * Sends the reset password email to email from frontend.
  * Creates token based on user id that differentiates users.
@@ -18,7 +19,7 @@ const forgotPasswordController = async (req, res) => {
   const user = await User.findOne({ email });
   if (!user) {
     console.log("No user error")
-    return res.status(404).json({ message: "No user found." });
+    return res.status(400).json({ message: "No user found." });
   }
   const token = jwt.sign({ id: user._id, }, process.env.userKEY, { expiresIn: "1d" })
   var transporter = nodemailer.createTransport({
@@ -41,7 +42,7 @@ const forgotPasswordController = async (req, res) => {
       console.log(error);
     } else {
       console.log('Email sent: ' + info.response);
-      return res.status(200).json({ message: "Password Reset." });
+      return res.status(200).json({ message: "Password reset email sent to " + email + "." });
     }
   });
 
@@ -59,6 +60,7 @@ const resetPasswordController = async (req, res) => {
   }
   catch(err) {
       console.log(err);
+      return res.status(200).json({ message:"Password reset failed. " });
   }
 }
 

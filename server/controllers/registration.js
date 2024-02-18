@@ -17,8 +17,8 @@ const registrationPostController = async (req, res) => {
     if (role === "user" || role === 'professional') {
       const user = await User.findOne({ email });
       if (user) {
-        res.status(409).json({ message: "Client is already registered." });
-        console.log('Account exists')
+        res.status(400).json({ message: "User is already registered." });
+        console.log('User is already registered.')
         return;
       }
     }
@@ -33,11 +33,12 @@ const registrationPostController = async (req, res) => {
     });
 
     await newUser.save();
-    console.log("Account created.");
+    console.log("User created with registration.");
     return res.status(200).json({ message: "Account created." });
   }
   else {
     console.log("Error: missing fields")
+    return res.status(400).json({ message: "Please fill in all required fields." });
   }
 };
 

@@ -16,16 +16,16 @@ const loginPostController = async (req, res) => {
 
   // checks for existing user else break
   if (!user) {
-    return res.status(404).json({ message: "Account does not exist." });
+    return res.status(400).json({ message: "Account does not exist." });
   }
-  
+
   const validPassword = await bcrypt.compare(password, user.password);
 
   if (!validPassword) {
-    return res.json({ message: "Password invalid." });
+    return res.status(400).json({ message: "Password is invalid." });
   }
   if (role != user.role) {
-    return res.status(404).json({ message: "Account does not exist." });
+    return res.status(400).json({ message: "Account does not exist." });
   }
 
   if (role === "user" || role === 'admin') {

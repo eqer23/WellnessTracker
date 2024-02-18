@@ -7,12 +7,14 @@ const google = async (req, res) => {
     console.log('OAuth in process')
     console.log('Using this email: ' + req.body.email);
     console.log('Using this Role: ' + req.body.role)
+    if (req.body.role == '') {
+        return res.status(400).json({ message: "To use OAuth2 you must pick a role to sign in as." });
+    }
     try {
-        const user = User.findOne({ email: req.body.email })
-        if (user.email == req.body.email) {
-            console.log(user.email)
+        const user = await User.findOne({ email: req.body.email })
+        if (user) {
             const token = jwt.sign({ id: user._id }, process.env.userKey);
-            console.log("Existing user found, logging in")
+            console.log("Existing user found with OAuth2: "+ req.body.email + " logging in")
             return res.cookie("access_token", token, { httpOnly: true }).status(200);
         }
         else {
