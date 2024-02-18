@@ -10,37 +10,39 @@ const google = async (req, res) => {
     if (req.body.role == '') {
         return res.status(400).json({ message: "To use OAuth2 you must pick a role to sign in as." });
     }
-    try {
-        const user = await User.findOne({ email: req.body.email })
-        if (user) {
 
-            const token = jwt.sign(
-                { id: user._id, role: req.body.role },
-                process.env.userKEY
-            );
-            console.log("Existing user found with OAuth2: " + req.body.email + " logging in")
+    const user = await User.findOne({ email: req.body.email })
 
-            res.cookie("token", token, { httpOnly: true, secure: true });
-            return res.json({ login: true, role: req.body.role });
+    if (user) {
+        if (user.role != req.body.role) {
+            return res.status(400).json({ message: "This user does not have this role." });
         }
-        else {
-            const placeholderPassword = 'test';
-            const hashPassword = await bcrypt.hash(placeholderPassword, 10);
-            const newUser = new User({
-                email: req.body.email,
-                password: hashPassword,
-                role: req.body.role
-            });
+        const token = jwt.sign(
+            { id: user._id, role: req.body.role },
+            process.env.userKEY
+        );
+        console.log("Existing user found with OAuth2: " + req.body.email + " logging in")
 
-            await newUser.save();
-            console.log("New user created from OAuth2")
-            const token = jwt.sign({ id: newUser._id }, process.env.userKey);
-            res.cookie("access_token", token, { httpOnly: true, secure: true });
-        }
+        res.cookie("token", token, { httpOnly: true, secure: true });
+        return res.json({ login: true, role: req.body.role });
     }
-    catch (err) {
-        console.log(err);
-    }
-};
+    else {
+        const placeholderPassword = 'test';
+        const hashPassword = await bcrypt.hash(placeholderPassword, 10);
+        const newUser = new User({
+            email: req.body.email,
+            password: hashPassword,
+            role: req.body.role
+        });
+
+        await newUser.save();
+        console.log("New user created from OAuth2")
+        const token = jwt.sign(
+            { id: newUser._id, role: req.body.role },
+            process.env.userKEY
+        );
+        res.cookie("access_token", token, { httpOnly: true, secure: true });
+        return res.json({ login: true, role: req.body.role });    }
+}
 
 module.exports = google;
