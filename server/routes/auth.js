@@ -7,6 +7,7 @@ const loginPostController = require("../controllers/login.js");
 const registrationPostController = require("../controllers/registration.js");
 const google = require("../controllers/oauth.js");
 
+// auth takes care of all authentication related router calls
 router.post("/register", registrationPostController);
 router.post("/forgot-password", forgotPasswordController);
 router.post("/reset-password/:token", resetPasswordController);

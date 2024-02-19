@@ -33,7 +33,7 @@ const loginPostController = async (req, res) => {
       { id: user._id, role: "client" },
       process.env.userKEY
     );
-    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.cookie("session-token", token);
     return res.json({ login: true, role: "client" });
   }
   else if (role === "professional") {
@@ -41,7 +41,7 @@ const loginPostController = async (req, res) => {
       { id: user._id, role: "professional" },
       process.env.userKEY
     );
-    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.cookie("session-token", token);
     return res.json({ login: true, role: "professional" });
   }
 };

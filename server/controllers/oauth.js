@@ -2,7 +2,12 @@ const { User } = require("../models/User.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-
+/**
+ * OAuth2 Google logic.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const google = async (req, res) => {
     console.log('OAuth in process')
     console.log('Using this email: ' + req.body.email);
@@ -23,10 +28,11 @@ const google = async (req, res) => {
         );
         console.log("Existing user found with OAuth2: " + req.body.email + " logging in")
 
-        res.cookie("token", token, { httpOnly: true, secure: true });
+        res.cookie("session-token", token);
         return res.json({ login: true, role: req.body.role });
     }
     else {
+        // temp password for user
         const placeholderPassword = 'test';
         const hashPassword = await bcrypt.hash(placeholderPassword, 10);
         const newUser = new User({
@@ -41,7 +47,8 @@ const google = async (req, res) => {
             { id: newUser._id, role: req.body.role },
             process.env.userKEY
         );
-        res.cookie("access_token", token, { httpOnly: true, secure: true });
+        // this is the cookie that will be used for frontend
+        res.cookie("session-token", token);
         return res.json({ login: true, role: req.body.role });    }
 }
 
