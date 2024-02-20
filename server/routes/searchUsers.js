@@ -62,4 +62,5 @@ router.get("/users", async(req, res) => {
     }
 });
 
+router.post("/search-users", searchUsersPostController);
 export { router as searchUsersRouter };
