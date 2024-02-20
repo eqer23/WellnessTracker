@@ -2,8 +2,16 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const {User} = require("../models/User");
-
 const app = express();
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next - next operation which is getDataController
+ * @returns 
+ */
+
 
 // Middleware to verify the session-token cookie
 const verifyToken = (req, res, next) => {
