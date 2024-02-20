@@ -7,6 +7,7 @@ const { authRouter } = require("./routes/auth.js");
 
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
+const { profileRouter } = require("./routes/profile.js");
 const url = "mongodb://localhost:27017";
 const databaseName = "wellnesstracker";
 const client = new MongoClient(url);
@@ -52,6 +53,7 @@ app.use(cors({
 app.use(cookieParser())
 dotenv.config()
 app.use('/', authRouter)
+app.use('/', profileRouter)
 
 // =======
 // app.use(express.json());
