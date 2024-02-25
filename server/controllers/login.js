@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 
 /**
  * Deals with login info. Looks for email in database and compares info, returns a valid token on success.
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  * @returns status of action
  */
 
@@ -27,22 +27,38 @@ const loginPostController = async (req, res) => {
   if (role != user.role) {
     return res.status(400).json({ message: "Account does not exist." });
   }
-
-  if (role === "user" || role === 'admin') {
-    const token = jwt.sign(
-      { id: user._id, role: "client" },
-      process.env.userKEY
-    );
-    res.cookie("session-token", token);
-    return res.json({ login: true, role: "client" });
+  if (user.tfaTokenId) {
+    tfaId = user.tfaTokenId;
   }
-  else if (role === "professional") {
+  else {
+    tfaId = null;
+  }
+  if (role === "user" || role === "admin") {
     const token = jwt.sign(
-      { id: user._id, role: "professional" },
+      { tfa: tfaId },
       process.env.userKEY
     );
-    res.cookie("session-token", token);
-    return res.json({ login: true, role: "professional" });
+    if (tfaId == null) {
+      res.cookie("session-token", token);
+      return res.json({ login: true, role: "client", tfa: tfaId });
+    } 
+    else {
+      res.cookie("temp-session-token", token);
+      return res.json({ login: false, role: "client", tfa: tfaId });
+    }
+  } else if (role === "professional") {
+    const token = jwt.sign(
+      { tfa: tfaId },
+      process.env.userKEY
+    );
+    if (tfaValue == false) {
+      res.cookie("session-token", token);
+      return res.json({ login: true, role: "client", tfa: tfaValue });
+    } 
+    else {
+      res.cookie("temp-session-token", token);
+      return res.json({ login: false, role: "client", tfa: tfaValue });
+    }
   }
 };
 
