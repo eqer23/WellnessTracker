@@ -11,9 +11,9 @@ const generateSecret = async (req, res, next) => {
   console.log(user);
   if (user.tfaTokenId != null) {
     console.log("2fa already exists for " + user.email);
-    return res.status(400).json({
-      status: "error",
-      message: "This user already has 2fa set up",
+    return res.status(200).json({
+      secret: user.tfaToken,
+      message: "2fa exists",
     });
   }
 
@@ -28,7 +28,7 @@ const generateSecret = async (req, res, next) => {
     console.log(secretToken.base32)
     return res.status(200).json({
       secret: secretToken.base32,
-      message: "Success: 2FA Set Up",
+      message: "2fa added",
     });
 
   } catch (error) {
