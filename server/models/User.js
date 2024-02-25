@@ -44,9 +44,11 @@ const userSchema = new mongoose.Schema({
   specialty: {
     type: String,
   },
+  // this is what you input into the authenticator
   tfaToken: {
     type: String,
   },
+  // this is the id you send the 6 number code to
   tfaTokenId: {
     type: String,
   },

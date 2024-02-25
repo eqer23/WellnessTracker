@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const tokenSchema = new mongoose.Schema(
   {
     secret: String,
-    authIsSet: {
-      type: Boolean,
+    user: {
+      type: String,
       default: false,
     },
   },

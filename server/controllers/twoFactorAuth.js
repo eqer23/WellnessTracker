@@ -7,7 +7,15 @@ const jwt = require("jsonwebtoken");
 const generateSecret = async (req, res, next) => {
   const secretToken = speakeasy.generateSecret();
   const { userId } = req.body;
-  console.log(userId);
+  const user = await User.findById(userId);
+  console.log(user);
+  if (user.tfaTokenId != null) {
+    console.log("2fa already exists for " + user.email);
+    return res.status(400).json({
+      status: "error",
+      message: "This user already has 2fa set up",
+    });
+  }
 
   try {
     const token = await Token.create({ secret: secretToken.base32 });
@@ -17,12 +25,12 @@ const generateSecret = async (req, res, next) => {
       { tfaToken: secretToken.base32 }
     );
     console.log("2fa set");
-    // return res.status(200).json({
-    //   status: "success",
-    //   message: "secret token generated",
-    //   token: secretToken.base32,
-    //   tokenId: token.id,
-    // });
+    console.log(secretToken.base32)
+    return res.status(200).json({
+      secret: secretToken.base32,
+      message: "Success: 2FA Set Up",
+    });
+
   } catch (error) {
     return res.status(400).json({
       status: "error",
