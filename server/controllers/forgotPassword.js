@@ -34,7 +34,7 @@ const forgotPasswordController = async (req, res) => {
     from: process.env.EMAIL,
     to: email,
     subject: 'Instafit: Reset your password',
-    text: `http://localhost:5173/reset-password/${token}`
+    text: process.env.CLIENT_URL + `reset-password/${token}`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
