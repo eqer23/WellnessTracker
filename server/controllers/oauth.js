@@ -36,6 +36,8 @@ const google = async (req, res) => {
         const placeholderPassword = 'test';
         const hashPassword = await bcrypt.hash(placeholderPassword, 10);
         const newUser = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             password: hashPassword,
             role: req.body.role

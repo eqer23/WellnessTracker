@@ -3,9 +3,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 /**
- * Deals with login info. Looks for email in database and compares info, returns a valid token on success.
- * @param {*} req 
- * @param {*} res 
+ * Deals with login info. Looks for email in database and compares info, returns a valid token on success.\
+ * 
+ * @param {*} req
+ * @param {*} res
  * @returns status of action
  */
 
@@ -27,22 +28,27 @@ const loginPostController = async (req, res) => {
   if (role != user.role) {
     return res.status(400).json({ message: "Account does not exist." });
   }
-
-  if (role === "user" || role === 'admin') {
-    const token = jwt.sign(
-      { id: user._id, role: "client" },
-      process.env.userKEY
-    );
-    res.cookie("session-token", token);
-    return res.json({ login: true, role: "client" });
+  if (user.tfaTokenId) {
+    tfaId = user.tfaTokenId;
   }
-  else if (role === "professional") {
-    const token = jwt.sign(
-      { id: user._id, role: "professional" },
-      process.env.userKEY
-    );
+  else {
+    tfaId = null;
+  }
+
+  const token = jwt.sign(
+    { tfa: tfaId },
+    process.env.userKEY
+  );
+
+  // if no 2fa activated, then regular login. Returns full session token
+  if (tfaId == null) {
     res.cookie("session-token", token);
-    return res.json({ login: true, role: "professional" });
+    return res.json({ login: true, role: role, tfa: tfaId });
+  } 
+  // if 2fa active, then temp-token for 2fa purposes, not full login
+  else {
+    res.cookie("temp-session-token", token);
+    return res.json({ login: false, role: role, tfa: tfaId });
   }
 };
 

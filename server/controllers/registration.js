@@ -11,9 +11,9 @@ const salt = 10;
  */
 
 const registrationPostController = async (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password, role, firstname, lastname } = req.body;
 
-  if (email && password && role) {// looks for existing user else break
+  if (email && password && role && firstname && lastname) {// looks for existing user else break
     if (role === "user" || role === 'professional') {
       const user = await User.findOne({ email });
       if (user) {
@@ -27,6 +27,8 @@ const registrationPostController = async (req, res) => {
 
     // creation of new user with data
     const newUser = new User({
+      firstName: firstname,
+      lastName: lastname,
       email: email,
       password: hashPassword,
       role: role
