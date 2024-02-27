@@ -35,18 +35,24 @@ const loginPostController = async (req, res) => {
     tfaId = null;
   }
 
-  const token = jwt.sign(
-    { tfa: tfaId },
-    process.env.userKEY
-  );
+  
+  
 
   // if no 2fa activated, then regular login. Returns full session token
   if (tfaId == null) {
+    const token = jwt.sign(
+      { id: user._id, role: req.body.role },
+      process.env.userKEY
+  );
     res.cookie("session-token", token);
     return res.json({ login: true, role: role, tfa: tfaId });
   } 
   // if 2fa active, then temp-token for 2fa purposes, not full login
   else {
+    const token = jwt.sign(
+      { tfa: tfaId },
+      process.env.userKEY
+    );
     res.cookie("temp-session-token", token);
     return res.json({ login: false, role: role, tfa: tfaId });
   }
