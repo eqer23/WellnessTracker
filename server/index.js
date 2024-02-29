@@ -51,6 +51,7 @@ const allowedOrigins = [
   "https://wellnesstracker-27u0.onrender.com",
   "http://localhost:3001",
   "http://localhost:5173",
+  "https://instafit-frontend.onrender.com"
 ];
 
 app.use(
