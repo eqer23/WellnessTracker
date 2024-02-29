@@ -44,7 +44,7 @@ const loginPostController = async (req, res) => {
       { id: user._id, role: req.body.role },
       process.env.userKEY
   );
-    res.cookie("session-token", token);
+    res.cookie("session-token", token, { sameSite: "none", partitioned: true });
     return res.json({ login: true, role: role, tfa: tfaId });
   } 
   // if 2fa active, then temp-token for 2fa purposes, not full login
@@ -53,7 +53,7 @@ const loginPostController = async (req, res) => {
       { tfa: tfaId },
       process.env.userKEY
     );
-    res.cookie("temp-session-token", token);
+    res.cookie("temp-session-token", token, { sameSite: "none", partitioned: true });
     return res.json({ login: false, role: role, tfa: tfaId });
   }
 };

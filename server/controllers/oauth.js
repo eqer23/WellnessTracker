@@ -28,7 +28,7 @@ const google = async (req, res) => {
         );
         console.log("Existing user found with OAuth2: " + req.body.email + " logging in")
 
-        res.cookie("session-token", token);
+        res.cookie("session-token", token, { sameSite: "none", partitioned: true });
         return res.json({ login: true, role: req.body.role });
     }
     else {
@@ -50,7 +50,7 @@ const google = async (req, res) => {
             process.env.userKEY
         );
         // this is the cookie that will be used for frontend
-        res.cookie("session-token", token);
+        res.cookie("session-token", token, { sameSite: "none", partitioned: true });
         return res.json({ login: true, role: req.body.role });    }
 }
 

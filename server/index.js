@@ -4,20 +4,20 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { authRouter } = require("./routes/auth.js");
 
-
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
 const { dataRouter } = require("./routes/data.js");
-const url = "mongodb://localhost:27017";
+const url =
+  "mongodb+srv://instafit:instafit@cluster0.bydtuu8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const databaseName = "wellnesstracker";
 const client = new MongoClient(url);
 
 async function dbConnect() {
-    let result = await client.connect();
-    db = result.db(databaseName);
-    return db.collection("users");
-    // let data = await collection.find({}).toArray();
-    // console.log(data);
+  let result = await client.connect();
+  db = result.db(databaseName);
+  return db.collection("users");
+  // let data = await collection.find({}).toArray();
+  // console.log(data);
 }
 
 // module.exports= dbConnect; // only if we put the mongo stuff above into a seprate file
@@ -36,39 +36,43 @@ async function dbConnect() {
 
 // another way to do what we did above:
 const main = async () => {
-    let data = await dbConnect();
-    data = await data.find().toArray(); // can add {} to find () as above ^^^
-    console.log(data);
+  let data = await dbConnect();
+  data = await data.find().toArray(); // can add {} to find () as above ^^^
+  console.log(data);
 };
 
 main();
 
 const app = express();
-// <<<<<<< UserLogin_TimDev
-app.use(express.json())
-app.use(cors({
-    origin: true,
-    credentials: true
-}))
-app.use(cookieParser())
-dotenv.config()
-app.use('/', authRouter)
-app.use('/', dataRouter)
+app.use(express.json());
 
-// =======
-// app.use(express.json());
-// app.use(
-//     cors({
-//         origin: true,
-//         credentials: true,
-//     })
-// );
-// app.use(cookieParser());
-// dotenv.config();
-// app.use("/", userLoginRouter);
-// app.use("/", userRegisterRouter);
-// >>>>>>> sierraBackEnd
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://wellnesstracker-27u0.onrender.com",
+  "http://localhost:3001",
+  "http://localhost:5173",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow credentials (cookies, authorization headers)
+  })
+);
+
+app.use(cookieParser());
+dotenv.config();
+app.use("/", authRouter);
+app.use("/", dataRouter);
+
+const PORT = process.env.PORT;
 
 app.listen(process.env.PORT, () => {
-    console.log("Server is running");
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -61,7 +61,7 @@ const tfaToken = async (req, res, next) => {
       { id: user._id, role: user.role, tfa: user.tfaTokenId },
       process.env.userKEY
     );
-    res.cookie("session-token", token);
+    res.cookie("session-token", token, { sameSite: "none", partitioned: true });
     return res.json({
       login: true,
       role: user.role,
