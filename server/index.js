@@ -46,11 +46,6 @@ main();
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = [
-  "https://instafit-frontend.onrender.com",
-  "https://instafit-frontend.onrender.com/login"
-];
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://instafit-frontend.onrender.com'); 
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -58,18 +53,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, 
-  })
-);
+app.use(cors({
+  origin: 'https://instafit-frontend.onrender.com',
+  credentials: true, 
+}));
 
 app.use(cookieParser());
 dotenv.config();
