@@ -47,8 +47,8 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://instafit-frontend.onrender.com"
+  "https://instafit-frontend.onrender.com",
+  "https://instafit-frontend.onrender.com/login"
 ];
 
 app.use((req, res, next) => {
@@ -67,7 +67,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, // Allow credentials (cookies, authorization headers)
+    credentials: true, 
   })
 );
 
