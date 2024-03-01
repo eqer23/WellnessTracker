@@ -66,6 +66,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+app.options('*', cors());
+
 app.use(cookieParser());
 dotenv.config();
 app.use("/", authRouter);
