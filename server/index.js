@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { authRouter } = require("./routes/auth.js");
+const path = require('path');
+
 
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
@@ -62,6 +64,13 @@ app.use("/", authRouter);
 app.use("/", dataRouter);
 
 const PORT = process.env.PORT;
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve the main HTML file for all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'main.html'));
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${PORT}`);
