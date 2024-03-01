@@ -65,11 +65,11 @@ app.use("/", dataRouter);
 
 const PORT = process.env.PORT;
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client')));
 
-// Serve the main HTML file for all routes
+// Serve the index HTML file for all routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'main.html'));
+  res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 
 app.listen(process.env.PORT, () => {
