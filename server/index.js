@@ -46,33 +46,19 @@ main();
 const app = express();
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: "https://instafit-frontend.onrender.com", // Replace with your front-end URL
-    methods: ["GET", "POST", "PUT"], // Allowed methods (adjust as needed)
-    credentials: true, // Allow cookies (if applicable)
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://instafit-frontend.onrender.com", // Replace with your front-end URL
+//     methods: ["GET", "POST", "PUT"], // Allowed methods (adjust as needed)
+//     credentials: true, // Allow cookies (if applicable)
+//     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+//   })
+// );
 
-// const app = express();
+app.use(cors({
+  origin: 'https://instafit-frontend.onrender.com'
+}));
 
-// app.use(cors({
-//   origin: ['https://instafit-frontend.onrender.com', 'https://instafit-backend.onrender.com', 'https://instafit-frontend.onrender.com/login', 'https://instafit-frontend.onrender.com/*'],
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
-
-// app.options('https://instafit-frontend.onrender.com', function(req, res, next){
-//   res.header('Access-Control-Allow-Origin', "*");
-//   res.header('Access-Control-Allow-Methods', 'POST');
-//   res.header("Access-Control-Allow-Headers", "accept, content-type");
-//   res.header("Access-Control-Max-Age", "1728000");
-//   return res.sendStatus(200);
-// });
-
-// app.options('*', cors());
 
 app.use(cookieParser());
 dotenv.config();
