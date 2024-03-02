@@ -44,6 +44,7 @@ const main = async () => {
 main();
 
 const app = express();
+app.use(express.json());
 
 app.use(
   cors({
@@ -55,7 +56,6 @@ app.use(
 );
 
 // const app = express();
-// app.use(express.json());
 
 // app.use(cors({
 //   origin: ['https://instafit-frontend.onrender.com', 'https://instafit-backend.onrender.com', 'https://instafit-frontend.onrender.com/login', 'https://instafit-frontend.onrender.com/*'],
