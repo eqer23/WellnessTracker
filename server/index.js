@@ -44,30 +44,17 @@ const main = async () => {
 main();
 
 const app = express();
-// <<<<<<< UserLogin_TimDev
 app.use(express.json())
 app.use(cors({
     origin: true,
     credentials: true
-}))
+}));
+
 app.use(cookieParser())
 dotenv.config()
 app.use('/', authRouter)
 app.use('/', dataRouter)
 
-// =======
-// app.use(express.json());
-// app.use(
-//     cors({
-//         origin: true,
-//         credentials: true,
-//     })
-// );
-// app.use(cookieParser());
-// dotenv.config();
-// app.use("/", userLoginRouter);
-// app.use("/", userRegisterRouter);
-// >>>>>>> sierraBackEnd
 
 app.listen(process.env.PORT, () => {
     console.log("Server is running");

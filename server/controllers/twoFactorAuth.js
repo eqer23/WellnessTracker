@@ -58,15 +58,11 @@ const tfaToken = async (req, res, next) => {
     });
   } else {
     const token = jwt.sign(
-      { id: user._id, role: user.role, tfa: user.tfaTokenId },
+      { id: user._id, role: user.role },
       process.env.userKEY
     );
-    res.cookie("session-token", token);
-    return res.json({
-      login: true,
-      role: user.role,
-      tfa: user.tfaTokenId,
-    });
+    // res.cookie("session-token", token);
+    return res.json({ login: true, role: req.body.role, token: token, tfa: user.tfaTokenId });
   }
   console.log("passed");
   console.log(req.cookies);
