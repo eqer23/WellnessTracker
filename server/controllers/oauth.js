@@ -23,13 +23,13 @@ const google = async (req, res) => {
             return res.status(400).json({ message: "This user does not have this role." });
         }
         const token = jwt.sign(
-            { id: user._id, role: req.body.role },
+            { id: user._id },
             process.env.userKEY
         );
         console.log("Existing user found with OAuth2: " + req.body.email + " logging in")
 
-        res.cookie("session-token", token);
-        return res.json({ login: true, role: req.body.role });
+        // res.cookie("session-token", token);
+        return res.json({ login: true, role: req.body.role, token: token });
     }
     else {
         // temp password for user
@@ -50,8 +50,9 @@ const google = async (req, res) => {
             process.env.userKEY
         );
         // this is the cookie that will be used for frontend
-        res.cookie("session-token", token);
-        return res.json({ login: true, role: req.body.role });    }
+        // res.cookie("session-token", token);
+        return res.json({ login: true, role: req.body.role, token: token });
+    }
 }
 
 module.exports = google;

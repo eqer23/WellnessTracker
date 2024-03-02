@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 /**
  * Deals with login info. Looks for email in database and compares info, returns a valid token on success.\
- * 
+ *
  * @param {*} req
  * @param {*} res
  * @returns status of action
@@ -30,31 +30,27 @@ const loginPostController = async (req, res) => {
   }
   if (user.tfaTokenId) {
     tfaId = user.tfaTokenId;
-  }
-  else {
+  } else {
     tfaId = null;
   }
-
-  
-  
 
   // if no 2fa activated, then regular login. Returns full session token
   if (tfaId == null) {
     const token = jwt.sign(
-      { id: user._id, role: req.body.role },
+      { id: user._id, role: user.role },
       process.env.userKEY
-  );
-    res.cookie("session-token", token);
-    return res.json({ login: true, role: role, tfa: tfaId });
-  } 
+    );
+    // res.cookie("session-token", token);
+    return res.json({ login: true, token: token });
+  }
   // if 2fa active, then temp-token for 2fa purposes, not full login
   else {
     const token = jwt.sign(
-      { tfa: tfaId },
+      { id: user._id, role: user.role, tfa: tfaId},
       process.env.userKEY
     );
-    res.cookie("temp-session-token", token);
-    return res.json({ login: false, role: role, tfa: tfaId });
+    // res.cookie("temp-session-token", token);
+    return res.json({ login: false, token: token, tfa: true });
   }
 };
 
