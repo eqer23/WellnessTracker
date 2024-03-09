@@ -3,7 +3,7 @@ const multer = require("multer");
 
 const store = (req, res, next) => {
     let content = new Content({
-        contentTitle : req.body.name,
+        contentTitle : req.body.title,
         dateCreated : req.body.dateCreated,
         contentType: req.body.contentType,
         contentContents : req.body.content,
