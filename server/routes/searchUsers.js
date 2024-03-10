@@ -54,7 +54,7 @@ router.get("/users", async(req, res) => {
             specialties: specialtyOptions,
             users
         };
-
+        // responds saying OK along with json body
         res.status(200).json(response);
     } catch (err) {
         console.log(err);
