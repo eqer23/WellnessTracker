@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const { userLoginRouter } = require("./routes/login.js");
 const { userRegisterRouter } = require("./routes/registration.js");
 const { forgotPasswordRouter } = require("./routes/forgotPassword.js");
+const { searchUsersRouter } = require("./routes/searchUsers.js");
 
 
 const app = express();
@@ -20,6 +21,7 @@ dotenv.config();
 app.use("/", userLoginRouter);
 app.use("/", userRegisterRouter);
 app.use("/", forgotPasswordRouter);
+app.use("/", searchUsersRouter);
 
 app.listen(process.env.PORT, () => {
     console.log("Server is running");

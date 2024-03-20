@@ -6,11 +6,11 @@ dotenv.config();
 
 const Connection = async () => {
     try {
-        mongoose.connect(process.env.MONGO)
-        console.log("DB Connected")
+        mongoose.connect(process.env.MONGO);
+        console.log("DB Connected");
     }
     catch(err) {
-        console.log("DB Connection error: " + err)
+        console.log("DB Connection error: " + err);
     }
 };
 
