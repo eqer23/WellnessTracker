@@ -50,6 +50,7 @@ const searchUsersPostController = async (req, res) => {
     };
     // responds saying OK along with json body
     res.status(200).json(response);
+    console.log("Called the controller")
 
 };
 
