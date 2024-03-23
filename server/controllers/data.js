@@ -47,7 +47,23 @@ const getDataController = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res, next) => {
+  try {
+    const userIdToExclude = req.params.userId; // Get the parameter from the route path
+    console.log(userIdToExclude)
+    const users = await User.find({ _id: { $ne: userIdToExclude } }).select([
+      "firstName",
+      "email",
+      "_id",
+    ]);
+    return res.json(users);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   getDataController,
   verifyToken,
+  getAllUsers,
 };
