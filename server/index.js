@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { authRouter } = require("./routes/auth.js");
 
+const { searchUsersRouter } = require("./routes/searchUsers.js");
 
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
@@ -57,8 +58,9 @@ dotenv.config()
 app.use('/', authRouter)
 app.use('/', dataRouter)
 app.use('/api/chat/',chatRouter);
+app.use("/", searchUsersRouter);
 
-
-app.listen(process.env.PORT, () => {
-    console.log("Server is running");
+const PORT = process.env.PORT;
+app.listen( PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
