@@ -21,7 +21,7 @@ const forgotPasswordController = async (req, res) => {
     console.log("No user error");
     return res.status(400).json({ message: "No user found." });
   }
-  const token = jwt.sign({ id: user._id }, process.env.userKEY, {
+  const token = jwt.sign({ _id: user._id }, process.env.userKEY, {
     expiresIn: "1d",
   });
   var transporter = nodemailer.createTransport({

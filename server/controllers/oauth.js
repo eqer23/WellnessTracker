@@ -23,7 +23,7 @@ const google = async (req, res) => {
             return res.status(400).json({ message: "This user does not have this role." });
         }
         const token = jwt.sign(
-            { id: user._id },
+            { _id: user._id },
             process.env.userKEY
         );
         console.log("Existing user found with OAuth2: " + req.body.email + " logging in")
@@ -46,7 +46,7 @@ const google = async (req, res) => {
         await newUser.save();
         console.log("New user created from OAuth2")
         const token = jwt.sign(
-            { id: newUser._id, role: req.body.role },
+            { _id: newUser._id, role: req.body.role },
             process.env.userKEY
         );
         // this is the cookie that will be used for frontend
