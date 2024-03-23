@@ -1,5 +1,4 @@
 const { Message } = require("../models/Message");
-const {User} = require("../models/User");
 
 const addMessage = async (req, res, next) => {
   try {
@@ -27,22 +26,22 @@ const getAllMessages = async (req, res, next) => {
     
     const { from, to } = req.body;
     console.log("from: " + from);
-    console.log("to:" + to)
-    // const messages = await Message.find({
-    //   users: {
-    //     $all: [from, to],
-    //   },
-    // }).sort({ updatedAt: 1 });
-    const messages = await Message.findOne({_id: "65feff9a2a754709e209dee2"});
-
-    // const showMessages = messages.map((msg) => {
-    //   return {
-    //     fromSelf: msg.sender.toString() === from,
-    //     message: msg.message.text,
-    //   };
-    // });
-    console.log(messages);
-    // res.json(showMessages);
+    console.log("to: " + to)
+    const messages = await Message.find({
+        $or: [
+          { "users.from": { $in: [from, to] } }, // Messages sent from 'from' or 'to'
+          { "users.to": { $in: [to] } }    // Messages sent to 'from' or 'to'
+        ]
+      }).sort({ updatedAt: 1 });
+    
+    const showMessages = messages.map((msg) => {
+      return {
+        fromSelf: msg.sender.toString() === from,
+        message: msg.message.text,
+      };
+    });
+    console.log(showMessages);
+    res.json(showMessages);
   } catch (e) {
     next(e);
   }

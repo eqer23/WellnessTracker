@@ -12,14 +12,15 @@ const { chatRouter } = require("./routes/chat.js");
 const url = "mongodb://localhost:27017";
 const databaseName = "wellnesstracker";
 const client = new MongoClient(url);
+const socket = require("socket.io");
 
-async function dbConnect() {
-    let result = await client.connect();
-    db = result.db(databaseName);
-    return db.collection("users");
+// async function dbConnect() {
+    // let result = await client.connect();
+    // db = result.db(databaseName);
+    // return db.collection("users");
     // let data = await collection.find({}).toArray();
     // console.log(data);
-}
+// }
 
 // module.exports= dbConnect; // only if we put the mongo stuff above into a seprate file
 
@@ -36,13 +37,13 @@ async function dbConnect() {
 // const dbConnect=require('./mongodb'); // only if above is in a different file
 
 // another way to do what we did above:
-const main = async () => {
-    let data = await dbConnect();
-    data = await data.find().toArray(); // can add {} to find () as above ^^^
-    console.log(data);
-};
+// const main = async () => {
+//     let data = await dbConnect();
+//     data = await data.find().toArray(); // can add {} to find () as above ^^^
+//     console.log(data);
+// };
 
-main();
+// main();
 
 const app = express();
 app.use(express.json())
