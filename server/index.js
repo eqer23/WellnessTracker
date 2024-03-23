@@ -8,6 +8,7 @@ const { authRouter } = require("./routes/auth.js");
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
 const { dataRouter } = require("./routes/data.js");
+const { chatRouter } = require("./routes/chat.js");
 const url = "mongodb://localhost:27017";
 const databaseName = "wellnesstracker";
 const client = new MongoClient(url);
@@ -54,6 +55,7 @@ app.use(cookieParser())
 dotenv.config()
 app.use('/', authRouter)
 app.use('/', dataRouter)
+app.use('/api/chat/',chatRouter);
 
 
 app.listen(process.env.PORT, () => {

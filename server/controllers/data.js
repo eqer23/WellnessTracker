@@ -52,6 +52,7 @@ const getAllUsers = async (req, res, next) => {
     const userIdToExclude = req.params.userId; // Get the parameter from the route path
     console.log(userIdToExclude)
     const users = await User.find({ _id: { $ne: userIdToExclude } }).select([
+      "firstName",
       "email",
       "_id",
     ]);
