@@ -3,7 +3,8 @@ const router = express.Router();
 require("../db.js");
 const searchUsersPostController = require("../controllers/searchUsers.js");
 
-router.post("/searchUsers", searchUsersPostController);
+// this line indicates that a link to /searchUsers should be handled by the "seachUsersPostController"
+router.get("/searchUsers", searchUsersPostController);
 
 module.exports = {
   searchUsersRouter: router
