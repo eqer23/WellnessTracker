@@ -16,11 +16,11 @@ const client = new MongoClient(url);
 const socket = require("socket.io");
 
 // async function dbConnect() {
-    // let result = await client.connect();
-    // db = result.db(databaseName);
-    // return db.collection("users");
-    // let data = await collection.find({}).toArray();
-    // console.log(data);
+// let result = await client.connect();
+// db = result.db(databaseName);
+// return db.collection("users");
+// let data = await collection.find({}).toArray();
+// console.log(data);
 // }
 
 // module.exports= dbConnect; // only if we put the mongo stuff above into a seprate file
@@ -47,20 +47,45 @@ const socket = require("socket.io");
 // main();
 
 const app = express();
-app.use(express.json())
-app.use(cors({
+app.use(express.json());
+app.use(
+  cors({
     origin: true,
-    credentials: true
-}));
+    credentials: true,
+  })
+);
 
-app.use(cookieParser())
-dotenv.config()
-app.use('/', authRouter)
-app.use('/', dataRouter)
-app.use('/api/chat/',chatRouter);
+app.use(cookieParser());
+dotenv.config();
+app.use("/", authRouter);
+app.use("/", dataRouter);
+app.use("/api/chat/", chatRouter);
 app.use("/", searchUsersRouter);
 
 const PORT = process.env.PORT;
-app.listen( PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+const io = socket(server, {
+  cors: {
+    origin: true,
+    credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-recieve", data.message);
+    }
+  });
 });
