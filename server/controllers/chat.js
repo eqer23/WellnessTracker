@@ -23,17 +23,28 @@ const addMessage = async (req, res, next) => {
 const getAllMessages = async (req, res, next) => {
   console.log("getting messages");
   try {
-    
     const { from, to } = req.body;
     console.log("from: " + from);
-    console.log("to: " + to)
+    console.log("to: " + to);
     const messages = await Message.find({
-        $or: [
-          { "users.from": { $in: [from, to] } }, // Messages sent from 'from' or 'to'
-          { "users.to": { $in: [to] } }    // Messages sent to 'from' or 'to'
-        ]
-      }).sort({ updatedAt: 1 });
+      $or: [
+        {
+          $and: [
+            { "users.from": { $in: [from] } }, 
+            { "users.to": { $in: [to] } }, 
+          ],
+        },
+        {
+          $and: [
+            { "users.from": { $in: [to] } }, 
+            { "users.to": { $in: [from] } }, 
+          ],
+        },
+      ],
+    }).sort({ updatedAt: 1 });
     
+
+
     const showMessages = messages.map((msg) => {
       return {
         fromSelf: msg.sender.toString() === from,
