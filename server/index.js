@@ -10,7 +10,8 @@ const { searchUsersRouter } = require("./routes/searchUsers.js");
 const { MongoClient } = require("mongodb");
 const { dataRouter } = require("./routes/data.js");
 const { chatRouter } = require("./routes/chat.js");
-const url = "mongodb+srv://instafit:instafit@cluster0.bydtuu8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const url =
+  "mongodb+srv://instafit:instafit@cluster0.bydtuu8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const databaseName = "wellnesstracker";
 const client = new MongoClient(url);
 const socket = require("socket.io");
