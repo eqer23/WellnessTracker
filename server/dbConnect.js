@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const dbConnect = () => {
     const connectionParams = {useNewUrlParse: true};
-    mongoose.connect("mongodb+srv://instafit:instafit@cluster0.bydtuu8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", connectionParams);
+    mongoose.connect(process.env.MONGO, connectionParams);
 
     mongoose.connection.on("connected", () => {
         console.log("connected to database successfully");
