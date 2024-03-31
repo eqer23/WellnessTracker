@@ -1,12 +1,13 @@
 const { Content } = require("../models/Content");
-const multer = require("multer");
 
-const store = (req, res, next) => {
+
+const newFiles = (req, res, next) => {
     let content = new Content({
         contentTitle : req.body.title,
         dateCreated : req.body.dateCreated,
         contentType: req.body.contentType,
         contentContents : req.body.content,
+        description : req.body.description,
         creatorID : req.body.creatorID
     })
     if(req.file){

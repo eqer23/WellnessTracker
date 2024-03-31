@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const contentSchema = new mongoose.Schema({
     contentTitle : {
@@ -15,6 +15,9 @@ const contentSchema = new mongoose.Schema({
     contentContents : {
         type: String
     },
+    description : {
+        type: String
+    },
     creatorID : {
         type: mongoose.ObjectId,
         required: true
@@ -22,4 +25,6 @@ const contentSchema = new mongoose.Schema({
 })
 
 const contentModel = mongoose.model('Content',contentSchema)
-export {contentModel as Content}
+module.exports = {
+    Content: contentModel
+};
