@@ -7,6 +7,7 @@ router.get("/data", verifyToken, getDataController);
 router.get("/getAllUsers/:userId", getAllUsers);
 
 
+
 module.exports = {
     dataRouter: router
 };
