@@ -26,24 +26,30 @@ const getAllMessages = async (req, res, next) => {
     const { from, to } = req.body;
     console.log("from: " + from);
     console.log("to: " + to);
-    const messages = await Message.find({
-      $or: [
-        {
-          $and: [
-            { "users.from": { $in: [from] } }, 
-            { "users.to": { $in: [to] } }, 
-          ],
-        },
-        {
-          $and: [
-            { "users.from": { $in: [to] } }, 
-            { "users.to": { $in: [from] } }, 
-          ],
-        },
-      ],
-    }).sort({ updatedAt: 1 });
-    
 
+    let query = {};
+    if (from && to) {
+      query = {
+        $or: [
+          {
+            $and: [
+              { "users.from": { $in: [from] } },
+              { "users.to": { $in: [to] } },
+            ],
+          },
+          {
+            $and: [
+              { "users.from": { $in: [to] } },
+              { "users.to": { $in: [from] } },
+            ],
+          },
+        ],
+      };
+    } else {
+      query = { "users.to": { $in: [to] } };
+    }
+
+    const messages = await Message.find(query).sort({ updatedAt: 1 });
 
     const showMessages = messages.map((msg) => {
       return {
@@ -58,7 +64,28 @@ const getAllMessages = async (req, res, next) => {
   }
 };
 
+const messageCheck = async (req, res, next) => {
+  console.log("getting messages");
+  try {
+    const { to } = req.body;
+    query = { "users.to": { $in: [to] } };
+
+    const messages = await Message.find(query).sort({ updatedAt: 1 });
+
+    const showMessages = messages.map((msg) => {
+      return {
+        fromWho: msg.users[0].from,
+      };
+    });
+    console.log(showMessages);
+    res.json(showMessages);
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   addMessage,
   getAllMessages,
+  messageCheck
 };
