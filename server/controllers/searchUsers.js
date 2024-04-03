@@ -1,10 +1,26 @@
-import { models } from "mongoose";
-import {User} from "../models.User.js"
-
+const {User} = require("../models/User.js");
 
 const searchUsersPostController = async (req, res) => {
-    const { email, firstName, lastName, role } = req.body;
+    const searchQuery = req.query.query;
+    try {
+        const users = await User.find({
+            email: {$regex: searchQuery, $options: "i"}
+        });
+        console.log(users);
+        res.json(users);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message});
+    }
+};
 
-    
-    const user = await User.findOne({ email });
-}
+module.exports = searchUsersPostController;
+
+
+
+
+
+
+
+
+
