@@ -1,20 +1,18 @@
 const { Content } = require("../models/Content");
 
 
-const newFiles = (req, res, next) => {
-    let content = new Content({
-        contentTitle : req.body.title,
-        dateCreated : req.body.dateCreated,
-        contentType: req.body.contentType,
-        contentContents : req.body.content,
-        description : req.body.description,
-        creatorID : req.body.creatorID
-    })
-    if(req.file){
-        content.contentContents = req.file.path
-    }
+const uploadPostController = async (req, res) => {
+    const { title, dateCreated, contentType, description, creatorID, ImgURL } = req.body;
+    const newContent = new Content({
+        title: title,
+        dateCreated: dateCreated,
+        description: description,
+        creatorID: creatorID,
+        contentType: contentType,
+        contentContents: ImgURL
+      });
 
-    content.save()
+    await content.save()
     .then(response => {
         res.json({
             message : "UPLOADED!!!!!"
@@ -26,3 +24,4 @@ const newFiles = (req, res, next) => {
         })
     })
 }
+module.exports = uploadPostController;

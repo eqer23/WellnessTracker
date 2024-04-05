@@ -20,7 +20,7 @@ const contentSchema = new mongoose.Schema({
     },
     creatorID : {
         type: mongoose.ObjectId,
-        required: true
+        
     }
 })
 

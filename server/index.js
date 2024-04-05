@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const { authRouter } = require("./routes/auth.js");
 
 const { searchUsersRouter } = require("./routes/searchUsers.js");
+const { uploadRouter } = require("./routes/uploadContent.js");
 
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
