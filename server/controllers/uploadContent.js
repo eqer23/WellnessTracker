@@ -12,7 +12,7 @@ const uploadPostController = async (req, res) => {
         contentContents: ImgURL
       });
 
-    await content.save()
+    await newContent.save()
     .then(response => {
         res.json({
             message : "UPLOADED!!!!!"
