@@ -5,10 +5,15 @@ const express = require("express");
 const EventModel = require("../models/CalendarEvent.js");
 const router = express.Router();
 require("../db.js");
-const { getEvents, sendEvents } = require("../controllers/calendar.js");
+const {
+    getEvents,
+    sendEvents,
+    deleteEvent,
+} = require("../controllers/calendar.js");
 
 router.post("/getevents", getEvents);
 router.get("/sendevents", sendEvents);
+router.post("/deleteevent", deleteEvent);
 
 module.exports = {
     calendarRouter: router,

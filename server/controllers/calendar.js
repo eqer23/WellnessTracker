@@ -40,7 +40,35 @@ const sendEvents = async (req, res, next) => {
     }
 };
 
+const deleteEvent = async (req, res, next) => {
+    // const result = await Event.deleteOne({
+    //     _id: eventData._id,
+    //     _userId: currentUser,
+    // });
+    try {
+        const { currentUser, eventData } = await req.body;
+        // Assuming eventData contains an _id field which is the event's identifier in the database
+        // const result = await Event.deleteOne({
+        //     _id: eventData._id,
+        //     // _userId: currentUser,
+        // });
+        console.log("eData: ", JSON.stringify(eventData));
+        const result = await Event.deleteOne({ "eventData.Id": eventData });
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: "Event not found." });
+        }
+
+        console.log("Event deleted.");
+        return res.status(200).json({ message: "Event deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting event:", error);
+        return res.status(500).json({ message: "Failed to delete event." });
+    }
+};
+
 module.exports = {
     getEvents,
     sendEvents,
+    deleteEvent,
 };
