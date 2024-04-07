@@ -99,19 +99,18 @@ const deleteEvent = async (req, res, next) => {
 
 const changeEvent = async (req, res, next) => {
     try {
-        const { eventData } = req.body; // Assuming `eventData` contains the `_id` of the event to update and the new data.
+        const { eventData } = req.body;
 
         console.log("inside backend change event");
-        console.log("change data : ", JSON.stringify(eventData.Id));
+        console.log("change data : ", JSON.stringify(eventData));
 
-        const result = await Event.updateOne({ "eventData._id": eventData });
+        // const result = await Event.updateOne({ "eventData.Id": eventData.Id });
+        const result = await Event.findOneAndUpdate(
+            { "eventdata.Id": eventData.Id },
+            { eventdata: eventData }
+        );
 
         // const result = await Event.find(eventData.Id, eventData, {});
-        // const event = await Event.find({ _userId: _userId }).select([
-        //     "eventData",
-        // ]);
-
-        result.update;
 
         console.log("Event updated.");
         return res
