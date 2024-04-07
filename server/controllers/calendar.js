@@ -101,17 +101,17 @@ const changeEvent = async (req, res, next) => {
     try {
         const { eventData } = req.body; // Assuming `eventData` contains the `_id` of the event to update and the new data.
 
-        if (!eventData.Id) {
-            return res.status(400).json({ message: "Event ID is required." });
-        }
+        console.log("inside backend change event");
+        console.log("change data : ", JSON.stringify(eventData.Id));
 
-        const result = await Event.find(eventData.Id, eventData, {
-            new: true,
-        });
+        const result = await Event.updateOne({ "eventData._id": eventData });
 
-        if (!result) {
-            return res.status(404).json({ message: "Event not found." });
-        }
+        // const result = await Event.find(eventData.Id, eventData, {});
+        // const event = await Event.find({ _userId: _userId }).select([
+        //     "eventData",
+        // ]);
+
+        result.update;
 
         console.log("Event updated.");
         return res
