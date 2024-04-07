@@ -67,8 +67,65 @@ const deleteEvent = async (req, res, next) => {
     }
 };
 
+// const changeEvent = async (req, res, next) => {
+//     try {
+//         const { currentUser, eventData } = await req.body;
+//         // Assuming eventData contains an _id field which is the event's identifier in the database
+//         // const result = await Event.deleteOne({
+//         //     _id: eventData._id,
+//         //     // _userId: currentUser,
+//         // });
+//         console.log("eData: ", JSON.stringify(eventData));
+//         // const result = await Event.findByIdAndUpdate({
+//         //     "eventData.Id": eventData,
+//         // });
+//         const result = await Event.findByIdAndUpdate(eventData._id, eventData, {
+//             new: true,
+//         }); // `new: true` returns the updated document.
+
+//         if (!result) {
+//             return res.status(404).json({ message: "Event not found." });
+//         }
+
+//         console.log("Event changes.");
+//         return res
+//             .status(200)
+//             .json({ message: "Event changed successfully." } + result);
+//     } catch (error) {
+//         console.error("Error change event:", error);
+//         return res.status(500).json({ message: "Failed to change event." });
+//     }
+// };
+
+const changeEvent = async (req, res, next) => {
+    try {
+        const { eventData } = req.body; // Assuming `eventData` contains the `_id` of the event to update and the new data.
+
+        if (!eventData.Id) {
+            return res.status(400).json({ message: "Event ID is required." });
+        }
+
+        const result = await Event.find(eventData.Id, eventData, {
+            new: true,
+        });
+
+        if (!result) {
+            return res.status(404).json({ message: "Event not found." });
+        }
+
+        console.log("Event updated.");
+        return res
+            .status(200)
+            .json({ message: "Event updated successfully.", event: result });
+    } catch (error) {
+        console.error("Error updating event:", error);
+        return res.status(500).json({ message: "Failed to update event." });
+    }
+};
+
 module.exports = {
     getEvents,
     sendEvents,
     deleteEvent,
+    changeEvent,
 };
