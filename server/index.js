@@ -62,6 +62,7 @@ app.use("/", authRouter);
 app.use("/", dataRouter);
 app.use("/api/chat/", chatRouter);
 app.use("/", searchUsersRouter);
+app.use("/", uploadRouter);
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {

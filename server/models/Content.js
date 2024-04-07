@@ -7,7 +7,7 @@ const contentSchema = new mongoose.Schema({
     },
     dateCreated : {
         type: Date,
-        required: true
+        required: false
     },
     contentType : {
         type: String

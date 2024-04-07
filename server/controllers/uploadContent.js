@@ -4,7 +4,7 @@ const { Content } = require("../models/Content");
 const uploadPostController = async (req, res) => {
     const { title, dateCreated, contentType, description, creatorID, ImgURL } = req.body;
     const newContent = new Content({
-        title: title,
+        contentTitle: title,
         dateCreated: dateCreated,
         description: description,
         creatorID: creatorID,
@@ -18,10 +18,10 @@ const uploadPostController = async (req, res) => {
             message : "UPLOADED!!!!!"
         })
     })
-    .catch(error => {
+    /*.catch(error => {
         res.json({
             message: "An error Occured!"
         })
-    })
+    })*/
 }
 module.exports = uploadPostController;
