@@ -104,12 +104,6 @@ const changeEvent = async (req, res, next) => {
         console.log("inside backend change event");
         console.log("change data : ", JSON.stringify(eventData));
 
-        // const result = await Event.updateOne({ "eventData.Id": eventData.Id });
-        // const result = await Event.findOneAndUpdate(
-        //     { "eventdata.Id": eventData.Id },
-        //     { eventdata: eventData }
-        // );
-
         const result = await Event.findOneAndUpdate(
             { "eventData.Id": eventData.Id }, // Ensure this matches your schema
             { $set: { eventData: [eventData] } }, // Use $set to update nested fields
