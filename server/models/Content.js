@@ -21,6 +21,9 @@ const contentSchema = new mongoose.Schema({
     creatorID : {
         type: mongoose.ObjectId,
         
+    },
+    tag : {
+        type: String
     }
 })
 
