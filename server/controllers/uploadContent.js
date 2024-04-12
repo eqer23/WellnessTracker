@@ -2,14 +2,14 @@ const { Content } = require("../models/Content");
 
 
 const uploadPostController = async (req, res) => {
-    const { title, dateCreated, contentType, description, creatorID, ImgURL, tag } = req.body;
+    const { title, dateCreated, contentType, description, creatorID, ImgUrl, tag } = req.body;
     const newContent = new Content({
         contentTitle: title,
         dateCreated: dateCreated,
         description: description,
         creatorID: creatorID,
         contentType: contentType,
-        contentContents: ImgURL,
+        contentContents: ImgUrl,
         tag: tag
       });
 
