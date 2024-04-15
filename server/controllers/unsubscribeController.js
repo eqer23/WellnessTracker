@@ -16,4 +16,4 @@ const unsubscribeController = async (req, res) => {
     }
 };
 
-module.exports = ubsubscribeController;
+module.exports = unsubscribeController;

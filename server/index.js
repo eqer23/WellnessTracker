@@ -6,6 +6,7 @@ const { authRouter } = require("./routes/auth.js");
 // const test = require("./seed.js");
 
 const { searchUsersRouter } = require("./routes/searchUsers.js");
+const { subscriptionRouter } = require("./routes/subscriptions.js");
 
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
@@ -64,6 +65,7 @@ app.use("/", dataRouter);
 app.use("/api/chat/", chatRouter);
 app.use("/", calendarRouter);
 app.use("/", searchUsersRouter);
+app.use("/", subscriptionRouter);
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {
