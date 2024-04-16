@@ -49,16 +49,22 @@ const getDataController = async (req, res) => {
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const userIdToExclude = req.params.userId; // Get the parameter from the route path
-    console.log(userIdToExclude)
-    const users = await User.find({ _id: { $ne: userIdToExclude } }).select([
-      "firstName",
-      "lastName",
-      "email",
-      "_id",
-      "role",
-    ]);
-    return res.json(users);
+    const userIdToExclude = req.params.userId;
+    if (userIdToExclude != -1) {
+      const users = await User.find({ _id: { $ne: userIdToExclude } }).select([
+        "firstName",
+        "lastName",
+        "email",
+        "_id",
+        "role",
+      ]);
+      return res.json(users);
+    }
+    else {
+      const users = await User.find();
+      return res.json(users);
+    }
+    
   } catch (err) {
     console.log(err);
   }
