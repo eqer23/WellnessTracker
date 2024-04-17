@@ -9,11 +9,13 @@ const {
     getEvents,
     sendEvents,
     deleteEvent,
+    changeEvent,
 } = require("../controllers/calendar.js");
 
 router.post("/getevents", getEvents);
 router.get("/sendevents", sendEvents);
 router.post("/deleteevent", deleteEvent);
+router.post("/updateevent", changeEvent);
 
 module.exports = {
     calendarRouter: router,
