@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { authRouter } = require("./routes/auth.js");
+// const test = require("./seed.js");
 
 const { searchUsersRouter } = require("./routes/searchUsers.js");
 const { uploadRouter } = require("./routes/uploadContent.js");
@@ -12,6 +13,7 @@ const { mealRouter } = require("./routes/mealTracker.js");
 const { MongoClient } = require("mongodb");
 const { dataRouter } = require("./routes/data.js");
 const { chatRouter } = require("./routes/chat.js");
+const { calendarRouter } = require("./routes/calendar.js");
 const url = "mongodb://localhost:27017";
 const databaseName = "wellnesstracker";
 const client = new MongoClient(url);
@@ -51,10 +53,10 @@ const socket = require("socket.io");
 const app = express();
 app.use(express.json());
 app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
+    cors({
+        origin: true,
+        credentials: true,
+    })
 );
 
 app.use(cookieParser());
@@ -62,34 +64,35 @@ dotenv.config();
 app.use("/", authRouter);
 app.use("/", dataRouter);
 app.use("/api/chat/", chatRouter);
+app.use("/", calendarRouter);
 app.use("/", searchUsersRouter);
 app.use("/", uploadRouter);
 app.use("/", mealRouter);
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
 
 const io = socket(server, {
-  cors: {
-    origin: true,
-    credentials: true,
-  },
+    cors: {
+        origin: true,
+        credentials: true,
+    },
 });
 
 global.onlineUsers = new Map();
 
 io.on("connection", (socket) => {
-  global.chatSocket = socket;
-  socket.on("add-user", (userId) => {
-    onlineUsers.set(userId, socket.id);
-  });
+    global.chatSocket = socket;
+    socket.on("add-user", (userId) => {
+        onlineUsers.set(userId, socket.id);
+    });
 
-  socket.on("send-msg", (data) => {
-    const sendUserSocket = onlineUsers.get(data.to);
-    if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("msg-recieve", data.message);
-    }
-  });
+    socket.on("send-msg", (data) => {
+        const sendUserSocket = onlineUsers.get(data.to);
+        if (sendUserSocket) {
+            socket.to(sendUserSocket).emit("msg-recieve", data.message);
+        }
+    });
 });

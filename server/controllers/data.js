@@ -40,7 +40,7 @@ const getDataController = async (req, res) => {
       console.log("no data");
       return res.status(400).json({ message: "User not found" });
     }
-    console.log(userData);
+    console.log("userData: ", userData);
     res.json(userData);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
@@ -53,8 +53,10 @@ const getAllUsers = async (req, res, next) => {
     console.log(userIdToExclude)
     const users = await User.find({ _id: { $ne: userIdToExclude } }).select([
       "firstName",
+      "lastName",
       "email",
       "_id",
+      "role",
     ]);
     return res.json(users);
   } catch (err) {
