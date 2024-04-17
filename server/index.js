@@ -6,6 +6,7 @@ const { authRouter } = require("./routes/auth.js");
 
 const { searchUsersRouter } = require("./routes/searchUsers.js");
 const { uploadRouter } = require("./routes/uploadContent.js");
+const { mealRouter } = require("./routes/mealTracker.js");
 
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
@@ -63,6 +64,7 @@ app.use("/", dataRouter);
 app.use("/api/chat/", chatRouter);
 app.use("/", searchUsersRouter);
 app.use("/", uploadRouter);
+app.use("/", mealRouter);
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {
