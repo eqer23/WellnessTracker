@@ -1,4 +1,4 @@
-const { Content } = require("../models/Content");
+/*const { Content } = require("../models/Content");
 const multer = require("multer");
 
 const store = (req, res, next) => {
@@ -24,4 +24,4 @@ const store = (req, res, next) => {
             message: "An error Occured!"
         })
     })
-}
+}*/

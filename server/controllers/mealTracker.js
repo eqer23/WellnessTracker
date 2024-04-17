@@ -1,9 +1,9 @@
-const { Content } = require("../models/Content");
+const { Meal } = require("../models/Content");
 
 
-const uploadPostController = async (req, res) => {
+const mealPostController = async (req, res) => {
     const { title, dateCreated, contentType, description, creatorID, ImgUrl, tag } = req.body;
-    const newContent = new Content({
+    const newMeal = new Meal({
         contentTitle: title,
         dateCreated: dateCreated,
         description: description,
@@ -13,7 +13,7 @@ const uploadPostController = async (req, res) => {
         tag: tag
       });
 
-    await newContent.save()
+    await newMeal.save()
     .then(response => {
         res.json({
             message : "UPLOADED!!!!!"
@@ -25,4 +25,4 @@ const uploadPostController = async (req, res) => {
         })
     })*/
 }
-module.exports = uploadPostController;
+module.exports = mealPostController;
