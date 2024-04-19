@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+require("../db.js");
+const uploadPostController = require("../controllers/uploadContent.js");
 
-const uploadContentController = require("../controllers/uploadContent");
+router.post("/upload", uploadPostController);
 
-const upload = require("../middleware/upload");
-
-router.get('/', uploadContentController.index); //idk what this is
-router.post('/store', upload.single('contentContent'), uploadContentController.store);
+module.exports = {
+  uploadRouter: router
+};
