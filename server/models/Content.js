@@ -24,6 +24,15 @@ const contentSchema = new mongoose.Schema({
     },
     tag : {
         type: String
+    },
+    difficulty : {
+        type: String
+    },
+    intensity : {
+        type: String
+    },
+    time : {
+        type: String
     }
 })
 

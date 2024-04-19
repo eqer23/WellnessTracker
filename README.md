@@ -64,7 +64,7 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 3. Install NPM packages
    ```sh
-   npm install bcrypt cookie-parser cors dotenv express jsonwebtoken mongoose nodemailer nodemon
+   npm install
    ```
 4. Create an `.env` file and replace with your own databases and userkeys.
    ```sh
@@ -90,12 +90,14 @@ Use this space to show useful examples of how a project can be used. Additional 
 ## Roadmap
 
 - [x] Login/Registration
-- [ ] OAuth2
-- [ ] Two-factor Auth
-- [ ] Passoword Recovery
+- [x] OAuth2
+- [x] Two-factor Auth
+- [x] Password Recovery
 - [ ] Dashboard
 - [ ] Search
-- [ ] Chat
+- [x] Chat
+- [ ] Upload
+- [x] Calendar
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
