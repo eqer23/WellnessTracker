@@ -2,7 +2,7 @@ const { Content } = require("../models/Content");
 
 
 const uploadPostController = async (req, res) => {
-    const { title, dateCreated, contentType, description, creatorID, ImgUrl, tag } = req.body;
+    const { title, dateCreated, contentType, description, creatorID, ImgUrl, tag, difficulty, intensity, time } = req.body;
     const newContent = new Content({
         contentTitle: title,
         dateCreated: dateCreated,
@@ -10,7 +10,10 @@ const uploadPostController = async (req, res) => {
         creatorID: creatorID,
         contentType: contentType,
         contentContents: ImgUrl,
-        tag: tag
+        tag: tag,
+        difficulty: difficulty,
+        intensity: intensity,
+        time: time
       });
 
     await newContent.save()
