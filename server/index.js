@@ -14,7 +14,11 @@ const { MongoClient } = require("mongodb");
 const { dataRouter } = require("./routes/data.js");
 const { chatRouter } = require("./routes/chat.js");
 const { calendarRouter } = require("./routes/calendar.js");
+
 const url = "mongodb://localhost:27017";
+
+// const url = process.env.MONGO;
+
 const databaseName = "wellnesstracker";
 const client = new MongoClient(url);
 const socket = require("socket.io");
