@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const { User } = require("../models/User");
+const { Content } = require("../models/Content");
 const app = express();
 
 /**
@@ -70,8 +71,35 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const getAllContent = async (req, res) => {
+  try {
+    const content = await Content.find();
+    console.log(content)
+    return res.json(content);
+  } catch (error) {
+    console.log("backend content error");
+  }
+}
+
+const deleteContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const existingContent = await Content.findById(id);
+    if (!existingContent) {
+      return res.status(404).json({ message: "Content not found" });
+    }
+    await Content.findByIdAndDelete(id);
+    res.status(200).json({ message: "Content deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting content:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
 module.exports = {
   getDataController,
   verifyToken,
   getAllUsers,
+  getAllContent,
+  deleteContent
 };
