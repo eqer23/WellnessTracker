@@ -7,13 +7,13 @@ const { verifyToken} = require("../controllers/data.js");
 
 
 //Subscribe route
-router.post("/subscribe/:professionalId", subscribeController, verifyToken);
+router.post("/subscribe/:professionalId", verifyToken, subscribeController);
 
 //Unsubscribe route
-router.post("/unsubscribe/:professionalId", unsubscribeController);
+router.post("/unsubscribe/:professionalId", verifyToken, unsubscribeController);
 
 //Check ifSubscribed
-router.post("/isSubscribed/:userId/:professionalId", isSubscribed);
+router.get("/isSubscribed/:userId/:professionalId", isSubscribed);
 
 module.exports = {
     subscriptionRouter: router
