@@ -5,10 +5,10 @@ const unsubscribeController = require("../controllers/unsubscribeController");
 
 
 //Subscribe route
-router.post("/subscribe/:professionalID", subscribeController);
+router.post("/subscribe/:professionalId", subscribeController);
 
 //Unsubscribe route
-router.post("/unsubscribe/:professionalID", unsubscribeController);
+router.post("/unsubscribe/:professionalId", unsubscribeController);
 
 module.exports = {
     subscriptionRouter: router
