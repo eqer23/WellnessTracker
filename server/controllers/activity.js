@@ -1,9 +1,9 @@
 const { Meal } = require("../models/Meals");
 
 
-const mealPostController = async (req, res) => {
+const activityPostController = async (req, res) => {
     const { title, dateCreated, description, creatorID, tag } = req.body;
-    const newMeal = new Meal({
+    const newActivity = new Activity({
         contentTitle: title,
         dateCreated: dateCreated,
         description: description,
@@ -11,7 +11,7 @@ const mealPostController = async (req, res) => {
         tag: tag
       });
 
-    await newMeal.save()
+    await newActivity.save()
     .then(response => {
         res.json({
             message : "UPLOADED!!!!!"
@@ -23,4 +23,4 @@ const mealPostController = async (req, res) => {
         })
     })*/
 }
-module.exports = mealPostController;
+module.exports = activityPostController;
