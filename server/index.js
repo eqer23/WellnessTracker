@@ -14,6 +14,7 @@ const { MongoClient } = require("mongodb");
 const { dataRouter } = require("./routes/data.js");
 const { chatRouter } = require("./routes/chat.js");
 const { calendarRouter } = require("./routes/calendar.js");
+const { wellnessRouter } = require("./routes/wellnessForm.js");
 
 const url = "mongodb://localhost:27017";
 
@@ -72,6 +73,7 @@ app.use("/", calendarRouter);
 app.use("/", searchUsersRouter);
 app.use("/", uploadRouter);
 app.use("/", mealRouter);
+app.use("/", wellnessRouter);
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {
