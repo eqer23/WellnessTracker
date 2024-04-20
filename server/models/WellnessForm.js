@@ -6,7 +6,7 @@ const eventSchema = new Schema({
         type: Number,
     },
     description: {
-        type: string,
+        type: String,
     },
 });
 
