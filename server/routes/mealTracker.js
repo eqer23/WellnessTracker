@@ -3,7 +3,7 @@ const router = express.Router();
 require("../db.js");
 const mealPostController = require("../controllers/mealTracker.js");
 
-router.post("/mealtracker", mealPostController);
+router.post("/meals", mealPostController);
 
 module.exports = {
   mealRouter: router

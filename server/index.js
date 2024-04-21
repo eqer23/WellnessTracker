@@ -8,6 +8,7 @@ const { authRouter } = require("./routes/auth.js");
 const { searchUsersRouter } = require("./routes/searchUsers.js");
 const { uploadRouter } = require("./routes/uploadContent.js");
 const { mealRouter } = require("./routes/mealTracker.js");
+const { activityRouter } = require("./routes/activity.js");
 
 // adding mongodb stuff from video:
 const { MongoClient } = require("mongodb");
@@ -74,6 +75,7 @@ app.use("/", calendarRouter);
 app.use("/", searchUsersRouter);
 app.use("/", uploadRouter);
 app.use("/", mealRouter);
+app.use("/", activityRouter);
 app.use("/", wellnessRouter);
 app.use("/", workoutRouter);
 
