@@ -1,6 +1,3 @@
-//router.get(/frontendCallsBackend, backend())
-//router.get(/frontendCallsGetData, getData())
-
 const express = require("express");
 const EventModel = require("../models/CalendarEvent.js");
 const router = express.Router();
@@ -9,11 +6,13 @@ const {
     getEvents,
     sendEvents,
     deleteEvent,
+    changeEvent,
 } = require("../controllers/calendar.js");
 
 router.post("/getevents", getEvents);
 router.get("/sendevents", sendEvents);
 router.post("/deleteevent", deleteEvent);
+router.post("/updateevent", changeEvent);
 
 module.exports = {
     calendarRouter: router,
