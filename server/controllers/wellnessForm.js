@@ -23,9 +23,11 @@ const getWellnessScore = async (req, res) => {
         const { _userId } = req.query; // Assuming userID is passed as a query parameter
         console.log("UserID " + _userId);
 
-        const event = await Event.findOne({ _userId: _userId }).select(
-            "totalScore description"
-        ); // Use findOne to get a single document
+        const event = await Event.findOne({ _userId: _userId }).select([
+            "totalScore",
+            "description",
+        ]);
+
         if (!event) {
             return res
                 .status(404)
@@ -45,11 +47,12 @@ const getWellnessScore = async (req, res) => {
 };
 
 const wellnessScore = async (req, res, next) => {
-    const { total, description } = req.body;
+    const { _userId, totalScore, description } = req.body;
 
     try {
         const newEvent = new Event({
-            totalScore: total,
+            _userId: _userId,
+            totalScore: totalScore,
             description: description,
         });
 
