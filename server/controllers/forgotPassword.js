@@ -53,6 +53,7 @@ const forgotPasswordController = async (req, res) => {
 
 const resetPasswordController = async (req, res) => {
   const { token } = req.params;
+  console.log(token);
   const { password } = req.body;
   try {
     const decoded = jwt.verify(token, process.env.userKey);
