@@ -60,7 +60,8 @@ const resetPasswordController = async (req, res) => {
     const id = decoded.id;
     const hashPassword = await bcrypt.hash(password, salt);
     // await User.findByIdAndUpdate({ _id: id }, { password: hashPassword });
-    await User.findByIdAndUpdate(id, { password: hashPassword });
+    const updatedUser = await User.findByIdAndUpdate(id, { password: hashPassword });
+    console.log("Updated User:", updatedUser);    
     console.log(password)
     return res.status(200).json({ status: true, message: "Password updated." });
   } catch (err) {
