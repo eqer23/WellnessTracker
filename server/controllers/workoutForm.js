@@ -32,7 +32,7 @@ const getWorkoutPreference = async (req, res, next) => {
                 .status(404)
                 .json({ message: "No workout record found for this user." });
         }
-        console.log(event);
+        console.log("here is the event: " + event);
 
         return res.json(event);
     } catch (err) {
