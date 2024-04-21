@@ -59,7 +59,8 @@ const resetPasswordController = async (req, res) => {
     const decoded = jwt.verify(token, 'user-key');
     const id = decoded.id;
     const hashPassword = await bcrypt.hash(password, salt);
-    await User.findByIdAndUpdate({ _id: id }, { password: hashPassword });
+    // await User.findByIdAndUpdate({ _id: id }, { password: hashPassword });
+    await User.findByIdAndUpdate(id, { password: hashPassword });
     return res.status(200).json({ status: true, message: "Password updated." });
   } catch (err) {
     console.log(err);
