@@ -22,7 +22,8 @@ const workoutPreference = async (req, res, next) => {
 const getWorkoutPreference = async (req, res, next) => {
     try {
         const { _userId } = req.query; // Assuming userID is passed as a query parameter
-        // console.log("UserID " + _userId);
+
+        console.log("my user id in the backend: " + _userId);
 
         const event = await Event.findOne({ _userId: _userId }).select(["tag"]);
 
@@ -32,6 +33,8 @@ const getWorkoutPreference = async (req, res, next) => {
                 .json({ message: "No workout record found for this user." });
         }
         console.log(event);
+
+        return res.json(event);
     } catch (err) {
         console.log(err);
         return res
