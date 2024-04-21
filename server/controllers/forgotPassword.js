@@ -56,7 +56,7 @@ const resetPasswordController = async (req, res) => {
   console.log(token);
   const { password } = req.body;
   try {
-    const decoded = jwt.verify(token, process.env.userKey);
+    const decoded = jwt.verify(token, 'user-key');
     const id = decoded.id;
     const hashPassword = await bcrypt.hash(password, salt);
     await User.findByIdAndUpdate({ _id: id }, { password: hashPassword });
