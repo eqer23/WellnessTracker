@@ -6,6 +6,7 @@ const { authRouter } = require("./routes/auth.js");
 // const test = require("./seed.js");
 
 const { searchUsersRouter } = require("./routes/searchUsers.js");
+const { subscriptionRouter } = require("./routes/subscriptions.js");
 const { uploadRouter } = require("./routes/uploadContent.js");
 const { mealRouter } = require("./routes/mealTracker.js");
 const { activityRouter } = require("./routes/activity.js");
@@ -73,6 +74,7 @@ app.use("/", dataRouter);
 app.use("/api/chat/", chatRouter);
 app.use("/", calendarRouter);
 app.use("/", searchUsersRouter);
+app.use("/", subscriptionRouter);
 app.use("/", uploadRouter);
 app.use("/", mealRouter);
 app.use("/", activityRouter);

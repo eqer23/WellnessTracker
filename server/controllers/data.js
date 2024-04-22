@@ -47,6 +47,23 @@ const getDataController = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+// same function but renamed for ViewProfile in the frontend
+const getDataController2 = async (req, res) => {
+  console.log("getting data");
+  try {
+    const userId = req.params.userId;
+    console.log("userId: " + userId);
+    const userData = await User.findById(userId);
+    if (!userData) {
+      console.log("no data");
+      return res.status(400).json({ message: "User not found" });
+    }
+    console.log("userData: ", userData);
+    res.json(userData);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -101,5 +118,6 @@ module.exports = {
   verifyToken,
   getAllUsers,
   getAllContent,
-  deleteContent
+  deleteContent,
+  getDataController2,
 };

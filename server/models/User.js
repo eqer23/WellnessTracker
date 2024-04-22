@@ -52,6 +52,16 @@ const userSchema = new mongoose.Schema({
   tfaTokenId: {
     type: String,
   },
+    //subscribers is used for PROFESSIONALS
+    subscribers : [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    // subscriptions is used for CLIENTS
+    subscriptions: [{
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'User'
+    }]
 });
 
 const userModel = mongoose.model("User", userSchema);
