@@ -118,6 +118,6 @@ module.exports = {
   verifyToken,
   getAllUsers,
   getAllContent,
-  deleteContent
+  deleteContent,
   getDataController2,
 };
