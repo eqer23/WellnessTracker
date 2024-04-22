@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const { User } = require("../models/User");
+const { Content } = require("../models/Content");
 const app = express();
 
 /**
@@ -66,24 +67,57 @@ const getDataController2 = async (req, res) => {
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const userIdToExclude = req.params.userId; // Get the parameter from the route path
-    console.log(userIdToExclude)
-    const users = await User.find({ _id: { $ne: userIdToExclude } }).select([
-      "firstName",
-      "lastName",
-      "email",
-      "_id",
-      "role",
-    ]);
-    return res.json(users);
+    const userIdToExclude = req.params.userId;
+    if (userIdToExclude != -1) {
+      const users = await User.find({ _id: { $ne: userIdToExclude } }).select([
+        "firstName",
+        "lastName",
+        "email",
+        "_id",
+        "role",
+      ]);
+      return res.json(users);
+    }
+    else {
+      const users = await User.find();
+      return res.json(users);
+    }
+    
   } catch (err) {
     console.log(err);
   }
 };
 
+const getAllContent = async (req, res) => {
+  try {
+    const content = await Content.find();
+    console.log(content)
+    return res.json(content);
+  } catch (error) {
+    console.log("backend content error");
+  }
+}
+
+const deleteContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const existingContent = await Content.findById(id);
+    if (!existingContent) {
+      return res.status(404).json({ message: "Content not found" });
+    }
+    await Content.findByIdAndDelete(id);
+    res.status(200).json({ message: "Content deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting content:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
 module.exports = {
   getDataController,
   verifyToken,
   getAllUsers,
+  getAllContent,
+  deleteContent
   getDataController2,
 };
